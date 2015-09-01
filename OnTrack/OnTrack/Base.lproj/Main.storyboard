@@ -20,7 +20,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
-                                    <outlet property="delegate" destination="19e-2H-MdI" id="1ki-j2-1U9"/>
+                                    <outlet property="delegate" destination="19e-2H-MdI" id="6Mj-8K-Hcz"/>
                                 </connections>
                             </mapView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6UT-G7-fTk">
@@ -40,7 +40,7 @@
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="zoomButtonPressed:" destination="19e-2H-MdI" eventType="touchUpInside" id="6hU-co-lz4"/>
+                                    <action selector="didPressYouButton:" destination="19e-2H-MdI" eventType="touchUpInside" id="Z5D-cv-A5H"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Aru-9S-ezu">
@@ -60,11 +60,11 @@
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="zoom2ButtonPressed:" destination="19e-2H-MdI" eventType="touchUpInside" id="atl-at-YA4"/>
+                                    <action selector="didPressAllButton:" destination="19e-2H-MdI" eventType="touchUpInside" id="ALI-4c-wKs"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uqd-kR-6t0">
-                                <rect key="frame" x="16" y="8" width="70" height="70"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uqd-kR-6t0">
+                                <rect key="frame" x="16" y="28" width="70" height="70"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="70" id="d8j-Lt-kpT"/>
                                     <constraint firstAttribute="height" constant="70" id="vFq-hw-gSK"/>
@@ -73,7 +73,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="mapTypeButtonPressed:" destination="19e-2H-MdI" eventType="touchUpInside" id="RpM-OR-7d5"/>
+                                    <action selector="didPressMapTypeButton:" destination="19e-2H-MdI" eventType="touchUpInside" id="tej-NK-re4"/>
                                 </connections>
                             </button>
                         </subviews>
