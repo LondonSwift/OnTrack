@@ -1,25 +1,124 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6211" systemVersion="14A298i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="19e-2H-MdI">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6204"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
-        <scene sceneID="tne-QT-ifu">
+        <!--Map View Controller-->
+        <scene sceneID="cdL-ps-34F">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="19e-2H-MdI" customClass="MapViewController" customModule="OnTrack" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
-                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                        <viewControllerLayoutGuide type="top" id="dqk-Qc-GYz"/>
+                        <viewControllerLayoutGuide type="bottom" id="BNj-Dz-Cts"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                    <view key="view" contentMode="scaleToFill" id="RAB-4R-IBF">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <subviews>
+                            <mapView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="W2W-gP-1Tq">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <outlet property="delegate" destination="19e-2H-MdI" id="1ki-j2-1U9"/>
+                                </connections>
+                            </mapView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6UT-G7-fTk">
+                                <rect key="frame" x="55" y="550" width="55" height="50"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="55" id="A4w-34-aFX"/>
+                                    <constraint firstAttribute="height" constant="50" id="xhe-Vf-tqA"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="you">
+                                    <color key="titleColor" red="0.75686274509999996" green="0.74901960779999999" blue="0.74901960779999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="selected">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="zoomButtonPressed:" destination="19e-2H-MdI" eventType="touchUpInside" id="6hU-co-lz4"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Aru-9S-ezu">
+                                <rect key="frame" x="0.0" y="550" width="55" height="50"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="55" id="6YY-3C-UhZ"/>
+                                    <constraint firstAttribute="height" constant="50" id="huQ-sU-eHX"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="all">
+                                    <color key="titleColor" red="0.75686274509999996" green="0.74901960779999999" blue="0.74901960779999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="selected">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="zoom2ButtonPressed:" destination="19e-2H-MdI" eventType="touchUpInside" id="atl-at-YA4"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uqd-kR-6t0">
+                                <rect key="frame" x="16" y="8" width="70" height="70"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="70" id="d8j-Lt-kpT"/>
+                                    <constraint firstAttribute="height" constant="70" id="vFq-hw-gSK"/>
+                                </constraints>
+                                <state key="normal" title="Button">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="mapTypeButtonPressed:" destination="19e-2H-MdI" eventType="touchUpInside" id="RpM-OR-7d5"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.81092489919999999" green="0.2732484879" blue="0.1350176411" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="6UT-G7-fTk" firstAttribute="leading" secondItem="Aru-9S-ezu" secondAttribute="trailing" id="0eY-Q2-rAL"/>
+                            <constraint firstAttribute="bottom" secondItem="6UT-G7-fTk" secondAttribute="bottom" id="5wn-mb-Gd7"/>
+                            <constraint firstItem="BNj-Dz-Cts" firstAttribute="top" secondItem="W2W-gP-1Tq" secondAttribute="bottom" id="9kl-jc-Vlj"/>
+                            <constraint firstItem="uqd-kR-6t0" firstAttribute="top" secondItem="dqk-Qc-GYz" secondAttribute="bottom" constant="8" id="I7n-Vk-8xQ"/>
+                            <constraint firstItem="W2W-gP-1Tq" firstAttribute="leading" secondItem="RAB-4R-IBF" secondAttribute="leading" id="IgM-As-Xyc"/>
+                            <constraint firstAttribute="trailing" secondItem="6UT-G7-fTk" secondAttribute="trailing" constant="64" id="KCe-67-6JM"/>
+                            <constraint firstItem="Aru-9S-ezu" firstAttribute="leading" secondItem="RAB-4R-IBF" secondAttribute="leading" id="Kzf-Le-WEx"/>
+                            <constraint firstItem="6UT-G7-fTk" firstAttribute="top" secondItem="dqk-Qc-GYz" secondAttribute="bottom" constant="8" id="MVi-EZ-NlI"/>
+                            <constraint firstAttribute="trailing" secondItem="W2W-gP-1Tq" secondAttribute="trailing" id="VYj-VW-yiB"/>
+                            <constraint firstAttribute="bottom" secondItem="Aru-9S-ezu" secondAttribute="bottom" id="X5s-Ek-v98"/>
+                            <constraint firstItem="6UT-G7-fTk" firstAttribute="leading" secondItem="Aru-9S-ezu" secondAttribute="trailing" id="aPj-kL-S6P"/>
+                            <constraint firstItem="W2W-gP-1Tq" firstAttribute="top" secondItem="RAB-4R-IBF" secondAttribute="top" id="dEu-Bn-tWm"/>
+                            <constraint firstAttribute="trailing" secondItem="6UT-G7-fTk" secondAttribute="trailing" id="dJI-AO-6jr"/>
+                            <constraint firstAttribute="trailing" secondItem="Aru-9S-ezu" secondAttribute="trailing" constant="64" id="e59-Fi-ksw"/>
+                            <constraint firstItem="6UT-G7-fTk" firstAttribute="leading" secondItem="RAB-4R-IBF" secondAttribute="leading" constant="18" id="fHt-nk-8kB"/>
+                            <constraint firstItem="uqd-kR-6t0" firstAttribute="leading" secondItem="RAB-4R-IBF" secondAttribute="leading" constant="16" id="h21-2O-C7p"/>
+                            <constraint firstItem="Aru-9S-ezu" firstAttribute="top" secondItem="dqk-Qc-GYz" secondAttribute="bottom" constant="8" id="qv6-7b-7hb"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="e59-Fi-ksw"/>
+                                <exclude reference="qv6-7b-7hb"/>
+                                <exclude reference="KCe-67-6JM"/>
+                                <exclude reference="MVi-EZ-NlI"/>
+                                <exclude reference="aPj-kL-S6P"/>
+                                <exclude reference="dJI-AO-6jr"/>
+                                <exclude reference="fHt-nk-8kB"/>
+                            </mask>
+                        </variation>
                     </view>
+                    <connections>
+                        <outlet property="allButton" destination="Aru-9S-ezu" id="hNW-XV-7Ht"/>
+                        <outlet property="mapTypeButton" destination="uqd-kR-6t0" id="x2q-pW-ue5"/>
+                        <outlet property="mapView" destination="W2W-gP-1Tq" id="MW0-N3-kz2"/>
+                        <outlet property="youButton" destination="6UT-G7-fTk" id="pcd-1R-6tD"/>
+                    </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mis-Hk-wTD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="621" y="4"/>
         </scene>
     </scenes>
 </document>
