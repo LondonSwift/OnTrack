@@ -221,8 +221,6 @@ class MapViewController: UIViewController , MKMapViewDelegate , CLLocationManage
             self.mapView.mapType = .Satellite;
         case .AppleHybrid:
             self.mapView.mapType = .Hybrid;
-        case .None:
-            self.removeMapTiles()
         case .OpenCycleMap:
             self.addStreetMap();
         default:
@@ -230,26 +228,12 @@ class MapViewController: UIViewController , MKMapViewDelegate , CLLocationManage
         }
     }
     
-    
     func addStreetMap() {
         let template = "http://b.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png"
         self.overlay = MKTileOverlay(URLTemplate:template)
-        if let overlay = self.overlay {
-            overlay.canReplaceMapContent = true
-            self.mapView.addOverlay(overlay, level:.AboveLabels)
-        }
+        self.overlay?.canReplaceMapContent = true
+        self.mapView.addOverlay(self.overlay, level:.AboveLabels)
     }
-    
-    func removeMapTiles() {
-        self.overlay = MKTileOverlay()
-        if let overlay = self.overlay {
-            overlay.canReplaceMapContent = true;
-            self.mapView.addOverlay(overlay, level:.AboveLabels);
-        }
-    }
-    
-    
-    
 }
 
 extension MapViewController : MKMapViewDelegate {
