@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6214" systemVersion="14A314h" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6207"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
@@ -11,31 +12,74 @@
             <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  Copyright (c) 2015 LondonSwift. All rights reserved." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="8ie-xW-0ye">
-                    <rect key="frame" x="20" y="439" width="441" height="21"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OnTrack" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="kId-c2-rCX">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="IMG_2353" translatesAutoresizingMaskIntoConstraints="NO" id="SCn-hx-KPB">
+                    <rect key="frame" x="0.0" y="0.0" width="3264" height="2448"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="3264" id="6Bk-kB-W5r"/>
+                        <constraint firstAttribute="height" constant="2448" id="nGy-TN-mCo"/>
+                    </constraints>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="6Bk-kB-W5r"/>
+                            <exclude reference="nGy-TN-mCo"/>
+                        </mask>
+                    </variation>
+                </imageView>
+                <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ibL-be-eAn">
+                    <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
+                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="5oG-bO-g1h">
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    </view>
+                    <vibrancyEffect>
+                        <blurEffect style="light"/>
+                    </vibrancyEffect>
+                </visualEffectView>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="On Track" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="24" translatesAutoresizingMaskIntoConstraints="NO" id="kId-c2-rCX">
                     <rect key="frame" x="20" y="140" width="441" height="43"/>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="36"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <fontDescription key="fontDescription" name="KohinoorDevanagari-Regular" family="Kohinoor Devanagari" pointSize="51"/>
+                    <color key="textColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstAttribute="trailing" secondItem="kId-c2-rCX" secondAttribute="trailing" constant="19" id="5Yp-AN-sSK"/>
                 <constraint firstItem="kId-c2-rCX" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="bottom" multiplier="1/3" constant="1" id="5cJ-9S-tgC"/>
+                <constraint firstItem="SCn-hx-KPB" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="69U-Hg-UxA"/>
+                <constraint firstItem="SCn-hx-KPB" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="BaU-LB-oIP"/>
+                <constraint firstItem="ibL-be-eAn" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Ddj-PB-HMf"/>
+                <constraint firstItem="kId-c2-rCX" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="H3A-SB-a5b"/>
                 <constraint firstAttribute="centerX" secondItem="kId-c2-rCX" secondAttribute="centerX" id="Koa-jz-hwk"/>
-                <constraint firstAttribute="bottom" secondItem="8ie-xW-0ye" secondAttribute="bottom" constant="20" id="Kzo-t9-V3l"/>
-                <constraint firstItem="8ie-xW-0ye" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" symbolic="YES" id="MfP-vx-nX0"/>
-                <constraint firstAttribute="centerX" secondItem="8ie-xW-0ye" secondAttribute="centerX" id="ZEH-qu-HZ9"/>
+                <constraint firstItem="ibL-be-eAn" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="MIJ-qU-OFB"/>
+                <constraint firstAttribute="bottom" secondItem="kId-c2-rCX" secondAttribute="bottom" constant="297" id="OZN-pQ-mk2"/>
+                <constraint firstItem="SCn-hx-KPB" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Ode-Ca-Hah"/>
+                <constraint firstAttribute="bottom" secondItem="ibL-be-eAn" secondAttribute="bottom" id="PfJ-Bn-IL0"/>
+                <constraint firstAttribute="trailing" secondItem="ibL-be-eAn" secondAttribute="trailing" id="YNB-9T-Nad"/>
+                <constraint firstAttribute="bottom" secondItem="SCn-hx-KPB" secondAttribute="bottom" id="Yd3-fC-wgd"/>
                 <constraint firstItem="kId-c2-rCX" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" symbolic="YES" id="fvb-Df-36g"/>
+                <constraint firstAttribute="trailing" secondItem="SCn-hx-KPB" secondAttribute="trailing" id="gkE-6s-sK4"/>
+                <constraint firstItem="SCn-hx-KPB" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="jQH-rB-oM3"/>
+                <constraint firstItem="SCn-hx-KPB" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="kF7-uz-774"/>
+                <constraint firstItem="SCn-hx-KPB" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="ra9-ej-NHn"/>
+                <constraint firstItem="kId-c2-rCX" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="140" id="u1c-Kc-6hh"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="548" y="455"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="BaU-LB-oIP"/>
+                    <exclude reference="Ode-Ca-Hah"/>
+                    <exclude reference="Yd3-fC-wgd"/>
+                    <exclude reference="gkE-6s-sK4"/>
+                    <exclude reference="jQH-rB-oM3"/>
+                    <exclude reference="kF7-uz-774"/>
+                </mask>
+            </variation>
+            <point key="canvasLocation" x="324" y="284"/>
         </view>
     </objects>
+    <resources>
+        <image name="IMG_2353" width="3264" height="2448"/>
+    </resources>
 </document>

@@ -137,6 +137,8 @@
 		D63F8C841B95D85600D2F8F7 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftMigration = 0700;
+				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0640;
 				ORGANIZATIONNAME = LondonSwift;
 				TargetAttributes = {

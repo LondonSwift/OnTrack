@@ -18,7 +18,7 @@ public enum MapType: Int {
     case OpenCycleMap
 }
 
-class MapViewController: UIViewController , MKMapViewDelegate , CLLocationManagerDelegate {
+class MapViewController: UIViewController {
     var locationArray:Array<CLLocation>?
     var polylineArray:Array<MKPolyline>?
     var rendererArray:Array<MKPolylineRenderer>?
@@ -41,7 +41,7 @@ class MapViewController: UIViewController , MKMapViewDelegate , CLLocationManage
     
     var applicationDocumentsDirectory: NSURL {
         let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
-        return urls[urls.endIndex-1] as! NSURL
+        return urls[urls.endIndex-1]
     }
     
     lazy var locationArrayArray:Array<Array<CLLocation>> = {
@@ -134,7 +134,7 @@ class MapViewController: UIViewController , MKMapViewDelegate , CLLocationManage
     {
         if let locationArray = self.locationArray {
             for location in locationArray {
-                var annotation = MKPointAnnotation()
+                let annotation = MKPointAnnotation()
                 annotation.coordinate = location.coordinate;
                 self.mapView.addAnnotation(annotation);
             }
@@ -177,7 +177,7 @@ class MapViewController: UIViewController , MKMapViewDelegate , CLLocationManage
         
         
         for locationArray in self.locationArrayArray {
-            var coordinates = UnsafeMutablePointer<CLLocationCoordinate2D>.alloc(locationArray.count)
+            let coordinates = UnsafeMutablePointer<CLLocationCoordinate2D>.alloc(locationArray.count)
             var i = 0
             for location in locationArray {
                 coordinates[i++] = location.coordinate;
@@ -209,35 +209,39 @@ class MapViewController: UIViewController , MKMapViewDelegate , CLLocationManage
     }
     
     func updateMapType() {
-        self.mapView.removeOverlay(self.overlay);
         
-        self.overlay = nil;
-        
-        switch (self.mapType)
-        {
-        case .AppleStandard:
-            self.mapView.mapType = .Standard;
-        case .AppleSatellite:
-            self.mapView.mapType = .Satellite;
-        case .AppleHybrid:
-            self.mapView.mapType = .Hybrid;
-        case .OpenCycleMap:
-            self.addStreetMap();
-        default:
-            break;
+        if let overlay = self.overlay {
+            
+            self.mapView.removeOverlay(overlay);
+            
+            self.overlay = nil;
         }
+            switch (self.mapType)
+            {
+            case .AppleStandard:
+                self.mapView.mapType = .Standard;
+            case .AppleSatellite:
+                self.mapView.mapType = .Satellite;
+            case .AppleHybrid:
+                self.mapView.mapType = .Hybrid;
+            case .OpenCycleMap:
+                self.addStreetMap();
+            default:
+                break;
+            }
+        
     }
     
     func addStreetMap() {
         let template = "http://b.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png"
         self.overlay = MKTileOverlay(URLTemplate:template)
         self.overlay?.canReplaceMapContent = true
-        self.mapView.addOverlay(self.overlay, level:.AboveLabels)
+        self.mapView.addOverlay(self.overlay!, level:.AboveLabels)
     }
 }
 
 extension MapViewController : MKMapViewDelegate {
-    func mapView(mapView: MKMapView!, didChangeUserTrackingMode mode: MKUserTrackingMode, animated: Bool) {
+    func mapView(mapView: MKMapView, didChangeUserTrackingMode mode: MKUserTrackingMode, animated: Bool) {
         if (mode == .None) {
             self.allButton.selected = true;
             self.youButton.selected = false;
@@ -254,7 +258,7 @@ extension MapViewController : MKMapViewDelegate {
     }
     
     
-    func mapView(mapView: MKMapView!, rendererForOverlay overlay: MKOverlay!) -> MKOverlayRenderer! {
+    func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
         
         if overlay.isKindOfClass(MKTileOverlay) {
             return MKTileOverlayRenderer(overlay: overlay)
@@ -263,7 +267,7 @@ extension MapViewController : MKMapViewDelegate {
         if let polylineArray = self.polylineArray {
             
             if let overlay = overlay as? MKPolyline {
-                if let i = find(polylineArray, overlay) {
+                if let i = polylineArray.indexOf(overlay) {
                     
                     if let rendererArray = self.rendererArray {
                         
@@ -274,8 +278,10 @@ extension MapViewController : MKMapViewDelegate {
             }
         }
         
-        return nil
+        return MKTileOverlayRenderer(overlay: overlay)
+        
     }
+    
     
     func interpolateWith(metres: CLLocationDistance) {
         self.interpolatedLocationArray = [CLLocation]()
@@ -287,7 +293,7 @@ extension MapViewController : MKMapViewDelegate {
                     let distance = location.distanceFromLocation(lastLocation)
                     let bearing = self.bearingToLocation(location, fromLocation:lastLocation);
                     
-                    println(distance / metres)
+                    print(distance / metres)
                     
                     for var i:CLLocationDistance = 0 ; i < distance / metres ; i++ {
                         
@@ -340,16 +346,16 @@ extension MapViewController : MKMapViewDelegate {
 
 extension MapViewController : CLLocationManagerDelegate {
     
-    func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
-        let currentLocation = locations.first as! CLLocation
+        let currentLocation = locations.first
         
         var minimumDistance: CLLocationDistance = CLLocationDistance.infinity;
         
         if let interpolatedLocationArray = self.interpolatedLocationArray {
             
             for location in interpolatedLocationArray {
-                let distance = location.distanceFromLocation(currentLocation);
+                let distance = location.distanceFromLocation(currentLocation!);
                 minimumDistance = min(minimumDistance, distance);
                 
             }

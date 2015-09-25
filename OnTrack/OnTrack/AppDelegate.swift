@@ -25,10 +25,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var applicationDocumentsDirectory: NSURL {
         let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
-        return urls[urls.endIndex-1] as! NSURL
+        return urls[urls.endIndex-1] 
     }
     
-    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject?) -> Bool {
+    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
         
         self.setupDefaults()
         let data = NSData(contentsOfURL: url)
