@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" initialViewController="fV7-QE-jhu">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="19e-2H-MdI">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
@@ -39,7 +39,7 @@
                                 </connections>
                             </mapView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6UT-G7-fTk">
-                                <rect key="frame" x="55" y="550" width="55" height="50"/>
+                                <rect key="frame" x="0.0" y="500" width="55" height="50"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="55" id="A4w-34-aFX"/>
@@ -78,32 +78,34 @@
                                     <action selector="didPressAllButton:" destination="19e-2H-MdI" eventType="touchUpInside" id="ALI-4c-wKs"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uqd-kR-6t0">
-                                <rect key="frame" x="16" y="28" width="70" height="70"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="70" id="d8j-Lt-kpT"/>
-                                    <constraint firstAttribute="height" constant="70" id="vFq-hw-gSK"/>
-                                </constraints>
-                                <state key="normal" title="Button">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="didPressMapTypeButton:" destination="19e-2H-MdI" eventType="touchUpInside" id="tej-NK-re4"/>
-                                </connections>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tIv-aJ-GKY">
                                 <rect key="frame" x="167" y="559" width="171" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="3" translatesAutoresizingMaskIntoConstraints="NO" id="jhR-pJ-7gg">
+                                <rect key="frame" x="10" y="20" width="230" height="29"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="28" id="2hv-wl-nR0"/>
+                                    <constraint firstAttribute="width" constant="230" id="nzm-e2-dee"/>
+                                </constraints>
+                                <segments>
+                                    <segment title="Map"/>
+                                    <segment title="Photo"/>
+                                    <segment title="Hybrid"/>
+                                    <segment title="Bike" width="56.75"/>
+                                </segments>
+                                <color key="tintColor" red="1" green="0.098048262299999994" blue="0.09802194685" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" red="0.81092489919999999" green="0.2732484879" blue="0.1350176411" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="6UT-G7-fTk" firstAttribute="leading" secondItem="Aru-9S-ezu" secondAttribute="trailing" id="0eY-Q2-rAL"/>
                             <constraint firstAttribute="bottom" secondItem="6UT-G7-fTk" secondAttribute="bottom" id="5wn-mb-Gd7"/>
                             <constraint firstItem="BNj-Dz-Cts" firstAttribute="top" secondItem="W2W-gP-1Tq" secondAttribute="bottom" id="9kl-jc-Vlj"/>
-                            <constraint firstItem="uqd-kR-6t0" firstAttribute="top" secondItem="dqk-Qc-GYz" secondAttribute="bottom" constant="8" id="I7n-Vk-8xQ"/>
+                            <constraint firstAttribute="trailing" secondItem="jhR-pJ-7gg" secondAttribute="trailing" constant="10" id="DUb-U3-T2C"/>
+                            <constraint firstItem="6UT-G7-fTk" firstAttribute="leading" secondItem="RAB-4R-IBF" secondAttribute="leading" id="DqW-nl-q2z"/>
                             <constraint firstItem="W2W-gP-1Tq" firstAttribute="leading" secondItem="RAB-4R-IBF" secondAttribute="leading" id="IgM-As-Xyc"/>
                             <constraint firstAttribute="trailing" secondItem="6UT-G7-fTk" secondAttribute="trailing" constant="64" id="KCe-67-6JM"/>
                             <constraint firstItem="Aru-9S-ezu" firstAttribute="leading" secondItem="RAB-4R-IBF" secondAttribute="leading" id="Kzf-Le-WEx"/>
@@ -111,29 +113,31 @@
                             <constraint firstAttribute="trailing" secondItem="W2W-gP-1Tq" secondAttribute="trailing" id="VYj-VW-yiB"/>
                             <constraint firstAttribute="bottom" secondItem="Aru-9S-ezu" secondAttribute="bottom" id="X5s-Ek-v98"/>
                             <constraint firstItem="6UT-G7-fTk" firstAttribute="leading" secondItem="Aru-9S-ezu" secondAttribute="trailing" id="aPj-kL-S6P"/>
+                            <constraint firstItem="BNj-Dz-Cts" firstAttribute="top" secondItem="jhR-pJ-7gg" secondAttribute="bottom" constant="11" id="c6j-wD-BRI"/>
                             <constraint firstItem="W2W-gP-1Tq" firstAttribute="top" secondItem="RAB-4R-IBF" secondAttribute="top" id="dEu-Bn-tWm"/>
                             <constraint firstAttribute="trailing" secondItem="6UT-G7-fTk" secondAttribute="trailing" id="dJI-AO-6jr"/>
                             <constraint firstAttribute="trailing" secondItem="Aru-9S-ezu" secondAttribute="trailing" constant="64" id="e59-Fi-ksw"/>
                             <constraint firstItem="6UT-G7-fTk" firstAttribute="leading" secondItem="RAB-4R-IBF" secondAttribute="leading" constant="18" id="fHt-nk-8kB"/>
-                            <constraint firstItem="uqd-kR-6t0" firstAttribute="leading" secondItem="RAB-4R-IBF" secondAttribute="leading" constant="16" id="h21-2O-C7p"/>
+                            <constraint firstItem="Aru-9S-ezu" firstAttribute="top" secondItem="6UT-G7-fTk" secondAttribute="bottom" id="n7a-YB-3nC"/>
                             <constraint firstItem="Aru-9S-ezu" firstAttribute="top" secondItem="dqk-Qc-GYz" secondAttribute="bottom" constant="8" id="qv6-7b-7hb"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="e59-Fi-ksw"/>
-                                <exclude reference="qv6-7b-7hb"/>
+                                <exclude reference="0eY-Q2-rAL"/>
+                                <exclude reference="5wn-mb-Gd7"/>
                                 <exclude reference="KCe-67-6JM"/>
                                 <exclude reference="MVi-EZ-NlI"/>
                                 <exclude reference="aPj-kL-S6P"/>
                                 <exclude reference="dJI-AO-6jr"/>
                                 <exclude reference="fHt-nk-8kB"/>
+                                <exclude reference="e59-Fi-ksw"/>
+                                <exclude reference="qv6-7b-7hb"/>
                             </mask>
                         </variation>
                     </view>
                     <connections>
                         <outlet property="allButton" destination="Aru-9S-ezu" id="hNW-XV-7Ht"/>
                         <outlet property="distanceLabel" destination="tIv-aJ-GKY" id="gSZ-PZ-1Vu"/>
-                        <outlet property="mapTypeButton" destination="uqd-kR-6t0" id="x2q-pW-ue5"/>
                         <outlet property="mapView" destination="W2W-gP-1Tq" id="MW0-N3-kz2"/>
                         <outlet property="youButton" destination="6UT-G7-fTk" id="pcd-1R-6tD"/>
                     </connections>

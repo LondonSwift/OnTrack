@@ -12,7 +12,7 @@
             <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="IMG_2353" translatesAutoresizingMaskIntoConstraints="NO" id="SCn-hx-KPB">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="IMG_2353" translatesAutoresizingMaskIntoConstraints="NO" id="SCn-hx-KPB">
                     <rect key="frame" x="0.0" y="0.0" width="3264" height="2448"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="3264" id="6Bk-kB-W5r"/>
@@ -80,6 +80,6 @@
         </view>
     </objects>
     <resources>
-        <image name="IMG_2353" width="3264" height="2448"/>
+        <image name="IMG_2353" width="1632" height="1224"/>
     </resources>
 </document>

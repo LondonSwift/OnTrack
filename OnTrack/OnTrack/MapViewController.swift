@@ -51,32 +51,38 @@ class MapViewController: UIViewController {
         
         let url = self.applicationDocumentsDirectory.URLByAppendingPathComponent("local.gpx")
         
-        if let root = GPXParser.parseGPXAtURL(url) {
+        
+        var checkValidation = NSFileManager.defaultManager()
+        
+        if (checkValidation.fileExistsAtPath(url.absoluteString )) {
             
-            if let tracks = root.tracks {
-                for track in tracks as! [GPXTrack] {
-                    
-                    for trackSegment in track.tracksegments as! [GPXTrackSegment] {
-                        var array = [CLLocation]()
-                        for trackPoint in  trackSegment.trackpoints as! [GPXTrackPoint] {
-                            let location = CLLocation(latitude: CLLocationDegrees(trackPoint.latitude), longitude: CLLocationDegrees(trackPoint.longitude))
-                            array.append(location)
+            if let root = GPXParser.parseGPXAtURL(url) {
+                
+                if let tracks = root.tracks {
+                    for track in tracks as! [GPXTrack] {
+                        
+                        for trackSegment in track.tracksegments as! [GPXTrackSegment] {
+                            var array = [CLLocation]()
+                            for trackPoint in  trackSegment.trackpoints as! [GPXTrackPoint] {
+                                let location = CLLocation(latitude: CLLocationDegrees(trackPoint.latitude), longitude: CLLocationDegrees(trackPoint.longitude))
+                                array.append(location)
+                            }
+                            locationArrayArray.append(array)
                         }
-                        locationArrayArray.append(array)
                     }
                 }
-            }
-            
-            if let routes = root.routes {
-                for route in routes as! [GPXRoute] {
-                    var array = [CLLocation]()
-                    
-                    for routePoint in  route.routepoints as! [GPXRoutePoint] {
-                        let location = CLLocation(latitude: CLLocationDegrees(routePoint.latitude), longitude: CLLocationDegrees(routePoint.longitude))
-                        array.append(location)
+                
+                if let routes = root.routes {
+                    for route in routes as! [GPXRoute] {
+                        var array = [CLLocation]()
+                        
+                        for routePoint in  route.routepoints as! [GPXRoutePoint] {
+                            let location = CLLocation(latitude: CLLocationDegrees(routePoint.latitude), longitude: CLLocationDegrees(routePoint.longitude))
+                            array.append(location)
+                        }
+                        
+                        locationArrayArray.append(array)
                     }
-                    
-                    locationArrayArray.append(array)
                 }
             }
         }
@@ -216,19 +222,19 @@ class MapViewController: UIViewController {
             
             self.overlay = nil;
         }
-            switch (self.mapType)
-            {
-            case .AppleStandard:
-                self.mapView.mapType = .Standard;
-            case .AppleSatellite:
-                self.mapView.mapType = .Satellite;
-            case .AppleHybrid:
-                self.mapView.mapType = .Hybrid;
-            case .OpenCycleMap:
-                self.addStreetMap();
-            default:
-                break;
-            }
+        switch (self.mapType)
+        {
+        case .AppleStandard:
+            self.mapView.mapType = .Standard;
+        case .AppleSatellite:
+            self.mapView.mapType = .Satellite;
+        case .AppleHybrid:
+            self.mapView.mapType = .Hybrid;
+        case .OpenCycleMap:
+            self.addStreetMap();
+        default:
+            break;
+        }
         
     }
     
