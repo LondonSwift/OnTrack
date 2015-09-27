@@ -30,6 +30,8 @@ class MapViewController: UIViewController {
     @IBOutlet weak var youButton: UIButton!
     @IBOutlet weak var distanceLabel: UILabel!
     
+    @IBOutlet weak var bottomBar: UIVisualEffectView!
+    @IBOutlet weak var leftBar: UIVisualEffectView!
     var mapType:MapType = .AppleStandard
     var boundingRect:MKMapRect?
     var overlay:MKTileOverlay?
@@ -39,22 +41,20 @@ class MapViewController: UIViewController {
     
     var found = false
     
-    var applicationDocumentsDirectory: NSURL {
-        let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
-        return urls[urls.endIndex-1]
-    }
     
     lazy var locationArrayArray:Array<Array<CLLocation>> = {
         
         var locationArrayArray = Array<Array<CLLocation>>()
         
         
-        let url = self.applicationDocumentsDirectory.URLByAppendingPathComponent("local.gpx")
+        let url = NSURL.applicationDocumentsDirectory().URLByAppendingPathComponent("local.gpx")
         
         
-        var checkValidation = NSFileManager.defaultManager()
+        var fileManager = NSFileManager.defaultManager()
         
-        if (checkValidation.fileExistsAtPath(url.absoluteString )) {
+        
+        
+        if (fileManager.fileExistsAtPath(url.absoluteString )) {
             
             if let root = GPXParser.parseGPXAtURL(url) {
                 
@@ -122,6 +122,18 @@ class MapViewController: UIViewController {
         self.allButton.selected = true
         self.updateMapType()
         self.setupLocationManager()
+        
+        self.customiseBars()
+    }
+    
+    func customiseBars() {
+      //  self.leftBar.layer.cornerRadius = 10
+      //  self.leftBar.clipsToBounds = true
+        
+        
+        
+   
+        
     }
     
     func setupLocationManager() {
