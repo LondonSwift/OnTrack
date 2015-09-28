@@ -10,12 +10,16 @@ import UIKit
 import MapKit
 import AudioToolbox
 
-public enum MapType: Int {
-    case AppleStandard = 0
-    case AppleSatellite
-    case AppleHybrid
-    case None
-    case OpenCycleMap
+public enum MapType: String {
+    case AppleStandard = "Std"
+    case AppleSatellite = "Sat"
+    case AppleHybrid = "Mix"
+    case OpenCycleMap = "Bike"
+}
+
+public enum ZoomType: String {
+    case You = "You"
+    case All = "All"
 }
 
 class MapViewController: UIViewController {
@@ -25,14 +29,14 @@ class MapViewController: UIViewController {
     var interpolatedLocationArray:Array<CLLocation>?
     
     @IBOutlet weak var mapTypeButton: UIButton!
+    @IBOutlet weak var zoomTypeButton: UIButton!
+    
     @IBOutlet weak var mapView: MKMapView!
-    @IBOutlet weak var allButton: UIButton!
-    @IBOutlet weak var youButton: UIButton!
-    @IBOutlet weak var distanceLabel: UILabel!
     
     @IBOutlet weak var bottomBar: UIVisualEffectView!
     @IBOutlet weak var leftBar: UIVisualEffectView!
     var mapType:MapType = .AppleStandard
+    var zoomType:ZoomType = .All
     var boundingRect:MKMapRect?
     var overlay:MKTileOverlay?
     
@@ -41,7 +45,7 @@ class MapViewController: UIViewController {
     
     var found = false
     
-    
+    @IBOutlet weak var distanceButton: UIButton!
     lazy var locationArrayArray:Array<Array<CLLocation>> = {
         
         var locationArrayArray = Array<Array<CLLocation>>()
@@ -92,15 +96,52 @@ class MapViewController: UIViewController {
         }()
     
     @IBAction func didPressMapTypeButton(sender: AnyObject) {
-        if let newValue = MapType(rawValue: self.mapType.rawValue + 1) {
-            self.mapType = newValue
+        
+        switch self.mapType {
+        case .AppleStandard:
+            self.mapType = .AppleSatellite
+        case .AppleSatellite:
+            self.mapType = .AppleHybrid
+        case .AppleHybrid:
+            self.mapType = .OpenCycleMap
+        case .OpenCycleMap:
+            self.mapType = .AppleSatellite
         }
-        else {
-            self.mapType = .AppleStandard
-        }
+        
+        self.updateMapTypeButton()
         
         self.updateMapType()
     }
+    
+    func updateMapTypeButton() {
+        self.mapTypeButton.setTitle(self.mapType.rawValue, forState: .Normal)
+    }
+    func updateZoomTypeButton() {
+        self.zoomTypeButton.setTitle(self.zoomType.rawValue, forState: .Normal)
+    }
+    
+    @IBAction func didPressZoomTypeButton(sender: AnyObject) {
+        
+        if self.zoomType == .All { self.zoomType = .You }
+        else { self.zoomType = .All }
+        
+        self.updateZoomTypeButton()
+        
+        self.updateZoomType()
+        
+    }
+    
+    
+    func updateZoomType() {
+        switch self.zoomType {
+        case .All:
+            self.calculateBoundingRect()
+            self.zoomMapToRoute()
+        case .You:
+            self.mapView.setUserTrackingMode(.FollowWithHeading, animated:true);
+        }
+    }
+    
     
     @IBAction func didPressAllButton(sender: AnyObject) {
         self.calculateBoundingRect()
@@ -108,7 +149,7 @@ class MapViewController: UIViewController {
     }
     
     @IBAction func didPressYouButton(sender: AnyObject) {
-        self.mapView.setUserTrackingMode(.FollowWithHeading, animated:true);
+        
     }
     
     override func viewDidLoad() {
@@ -119,21 +160,11 @@ class MapViewController: UIViewController {
         self.mapView.showsUserLocation = true
         self.popolateMapWithPolyline()
         self.zoomMapToRoute()
-        self.allButton.selected = true
         self.updateMapType()
+        self.updateMapTypeButton()
+        self.updateZoomType()
+        self.updateZoomTypeButton()
         self.setupLocationManager()
-        
-        self.customiseBars()
-    }
-    
-    func customiseBars() {
-      //  self.leftBar.layer.cornerRadius = 10
-      //  self.leftBar.clipsToBounds = true
-        
-        
-        
-   
-        
     }
     
     func setupLocationManager() {
@@ -260,21 +291,13 @@ class MapViewController: UIViewController {
 
 extension MapViewController : MKMapViewDelegate {
     func mapView(mapView: MKMapView, didChangeUserTrackingMode mode: MKUserTrackingMode, animated: Bool) {
-        if (mode == .None) {
-            self.allButton.selected = true;
-            self.youButton.selected = false;
+        switch mode {
+        case .None, .Follow:
+            self.zoomType = .All
+        case .FollowWithHeading:
+            self.zoomType = .You
         }
-        else if (mode == .Follow) {
-            self.allButton.selected = true;
-            self.youButton.selected = false;
-        }
-        else if (mode == .FollowWithHeading) {
-            self.allButton.selected = false;
-            self.youButton.selected = true;
-        }
-        
     }
-    
     
     func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
         
@@ -360,6 +383,10 @@ extension MapViewController : MKMapViewDelegate {
         
         return radiansBearing;
     }
+    
+    override func prefersStatusBarHidden() -> Bool {
+        return true;
+    }
 }
 
 extension MapViewController : CLLocationManagerDelegate {
@@ -391,7 +418,8 @@ extension MapViewController : CLLocationManagerDelegate {
                 self.found = true;
             }
             
-            self.distanceLabel.text = String(format:"%.2fm", minimumDistance);
+            self.distanceButton.setTitle(String(format:"%.2fm", minimumDistance), forState: .Normal)
+            
         }
         
     }

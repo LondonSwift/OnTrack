@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="7Kh-ui-V8W">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="19e-2H-MdI">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
@@ -62,10 +62,10 @@
             </objects>
             <point key="canvasLocation" x="1037" y="347"/>
         </scene>
-        <!--Map View Controller-->
+        <!--Pennine Bridleway-->
         <scene sceneID="cdL-ps-34F">
             <objects>
-                <viewController id="19e-2H-MdI" customClass="MapViewController" customModule="OnTrack" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Pennine Bridleway" id="19e-2H-MdI" customClass="MapViewController" customModule="OnTrack" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="dqk-Qc-GYz"/>
                         <viewControllerLayoutGuide type="bottom" id="BNj-Dz-Cts"/>
@@ -81,14 +81,57 @@
                                     <outlet property="delegate" destination="19e-2H-MdI" id="6Mj-8K-Hcz"/>
                                 </connections>
                             </mapView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tIv-aJ-GKY">
-                                <rect key="frame" x="167" y="559" width="171" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HOa-Hz-luh">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="yfq-uO-XG7"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="TrebuchetMS" family="Trebuchet MS" pointSize="18"/>
+                                <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Pennine Bridleway.gpx"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wsg-Nr-OyG">
+                                <rect key="frame" x="260" y="420" width="60" height="60"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="997-eo-kUh"/>
+                                    <constraint firstAttribute="height" constant="60" id="ywe-cs-6Kb"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="TrebuchetMS" family="Trebuchet MS" pointSize="18"/>
+                                <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="didPressMapTypeButton:" destination="19e-2H-MdI" eventType="touchUpInside" id="jTG-R8-0F1"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="voO-dZ-pOa">
+                                <rect key="frame" x="0.0" y="420" width="60" height="60"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="Za4-0W-Wnw"/>
+                                    <constraint firstAttribute="width" constant="60" id="ze7-d9-zwZ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="TrebuchetMS" family="Trebuchet MS" pointSize="18"/>
+                                <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="didPressZoomTypeButton:" destination="19e-2H-MdI" eventType="touchUpInside" id="f1n-dG-jgm"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6IR-N0-EC6">
+                                <rect key="frame" x="60" y="450" width="200" height="30"/>
+                                <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="tYP-5G-rnr"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="TrebuchetMS" family="Trebuchet MS" pointSize="15"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6UT-G7-fTk">
-                                <rect key="frame" x="0.0" y="410" width="35" height="35"/>
+                                <rect key="frame" x="106" y="316" width="35" height="35"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="35" id="A4w-34-aFX"/>
@@ -108,7 +151,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Aru-9S-ezu">
-                                <rect key="frame" x="0.0" y="445" width="35" height="35"/>
+                                <rect key="frame" x="49" y="333" width="35" height="35"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="35" id="6YY-3C-UhZ"/>
@@ -127,45 +170,42 @@
                                     <action selector="didPressAllButton:" destination="19e-2H-MdI" eventType="touchUpInside" id="ALI-4c-wKs"/>
                                 </connections>
                             </button>
-                            <segmentedControl opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="3" translatesAutoresizingMaskIntoConstraints="NO" id="jhR-pJ-7gg">
-                                <rect key="frame" x="80" y="441" width="230" height="29"/>
-                                <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="28" id="2hv-wl-nR0"/>
-                                    <constraint firstAttribute="width" constant="230" id="nzm-e2-dee"/>
-                                </constraints>
-                                <segments>
-                                    <segment title="Map"/>
-                                    <segment title="Photo"/>
-                                    <segment title="Hybrid"/>
-                                    <segment title="Bike" width="56.75"/>
-                                </segments>
-                                <color key="tintColor" red="1" green="0.098048262299999994" blue="0.09802194685" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" red="0.81092489919999999" green="0.2732484879" blue="0.1350176411" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="6UT-G7-fTk" firstAttribute="leading" secondItem="Aru-9S-ezu" secondAttribute="trailing" id="0eY-Q2-rAL"/>
+                            <constraint firstItem="BNj-Dz-Cts" firstAttribute="top" secondItem="6IR-N0-EC6" secondAttribute="bottom" id="368-cc-si6"/>
+                            <constraint firstItem="6IR-N0-EC6" firstAttribute="leading" secondItem="voO-dZ-pOa" secondAttribute="trailing" id="40L-X2-RIK"/>
                             <constraint firstAttribute="bottom" secondItem="6UT-G7-fTk" secondAttribute="bottom" id="5wn-mb-Gd7"/>
                             <constraint firstItem="BNj-Dz-Cts" firstAttribute="top" secondItem="W2W-gP-1Tq" secondAttribute="bottom" id="9kl-jc-Vlj"/>
-                            <constraint firstAttribute="trailing" secondItem="jhR-pJ-7gg" secondAttribute="trailing" constant="10" id="DUb-U3-T2C"/>
                             <constraint firstItem="6UT-G7-fTk" firstAttribute="leading" secondItem="RAB-4R-IBF" secondAttribute="leading" id="DqW-nl-q2z"/>
+                            <constraint firstAttribute="trailing" secondItem="Wsg-Nr-OyG" secondAttribute="trailing" id="FlA-oA-LoW"/>
                             <constraint firstItem="W2W-gP-1Tq" firstAttribute="leading" secondItem="RAB-4R-IBF" secondAttribute="leading" id="IgM-As-Xyc"/>
                             <constraint firstAttribute="trailing" secondItem="6UT-G7-fTk" secondAttribute="trailing" constant="64" id="KCe-67-6JM"/>
                             <constraint firstItem="Aru-9S-ezu" firstAttribute="leading" secondItem="RAB-4R-IBF" secondAttribute="leading" id="Kzf-Le-WEx"/>
+                            <constraint firstItem="HOa-Hz-luh" firstAttribute="leading" secondItem="RAB-4R-IBF" secondAttribute="leading" id="L8L-2H-7vr"/>
                             <constraint firstItem="6UT-G7-fTk" firstAttribute="top" secondItem="dqk-Qc-GYz" secondAttribute="bottom" constant="8" id="MVi-EZ-NlI"/>
+                            <constraint firstItem="Wsg-Nr-OyG" firstAttribute="leading" secondItem="6IR-N0-EC6" secondAttribute="trailing" id="Nxv-cv-VCp"/>
                             <constraint firstAttribute="trailing" secondItem="W2W-gP-1Tq" secondAttribute="trailing" id="VYj-VW-yiB"/>
+                            <constraint firstItem="BNj-Dz-Cts" firstAttribute="top" secondItem="Wsg-Nr-OyG" secondAttribute="bottom" id="Vn0-8d-fVh"/>
+                            <constraint firstItem="voO-dZ-pOa" firstAttribute="leading" secondItem="RAB-4R-IBF" secondAttribute="leading" id="Wd5-cb-LkO"/>
                             <constraint firstAttribute="bottom" secondItem="Aru-9S-ezu" secondAttribute="bottom" id="X5s-Ek-v98"/>
                             <constraint firstItem="6UT-G7-fTk" firstAttribute="leading" secondItem="Aru-9S-ezu" secondAttribute="trailing" id="aPj-kL-S6P"/>
-                            <constraint firstItem="BNj-Dz-Cts" firstAttribute="top" secondItem="jhR-pJ-7gg" secondAttribute="bottom" constant="11" id="c6j-wD-BRI"/>
+                            <constraint firstItem="BNj-Dz-Cts" firstAttribute="top" secondItem="voO-dZ-pOa" secondAttribute="bottom" id="bEr-fY-Uoy"/>
                             <constraint firstItem="W2W-gP-1Tq" firstAttribute="top" secondItem="RAB-4R-IBF" secondAttribute="top" id="dEu-Bn-tWm"/>
                             <constraint firstAttribute="trailing" secondItem="6UT-G7-fTk" secondAttribute="trailing" id="dJI-AO-6jr"/>
                             <constraint firstAttribute="trailing" secondItem="Aru-9S-ezu" secondAttribute="trailing" constant="64" id="e59-Fi-ksw"/>
                             <constraint firstItem="6UT-G7-fTk" firstAttribute="leading" secondItem="RAB-4R-IBF" secondAttribute="leading" constant="18" id="fHt-nk-8kB"/>
+                            <constraint firstAttribute="trailing" secondItem="HOa-Hz-luh" secondAttribute="trailing" id="gLt-Tg-olg"/>
+                            <constraint firstItem="HOa-Hz-luh" firstAttribute="top" secondItem="dqk-Qc-GYz" secondAttribute="bottom" id="mJT-vM-GhE"/>
                             <constraint firstItem="Aru-9S-ezu" firstAttribute="top" secondItem="6UT-G7-fTk" secondAttribute="bottom" id="n7a-YB-3nC"/>
                             <constraint firstItem="Aru-9S-ezu" firstAttribute="top" secondItem="dqk-Qc-GYz" secondAttribute="bottom" constant="8" id="qv6-7b-7hb"/>
                         </constraints>
                         <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="6UT-G7-fTk"/>
+                                <exclude reference="Aru-9S-ezu"/>
+                            </mask>
                             <mask key="constraints">
                                 <exclude reference="0eY-Q2-rAL"/>
                                 <exclude reference="5wn-mb-Gd7"/>
@@ -179,17 +219,19 @@
                             </mask>
                         </variation>
                     </view>
+                    <navigationItem key="navigationItem" title="Pennine Bridleway" id="ZBV-52-Ody"/>
+                    <nil key="simulatedStatusBarMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
-                        <outlet property="allButton" destination="Aru-9S-ezu" id="hNW-XV-7Ht"/>
-                        <outlet property="distanceLabel" destination="tIv-aJ-GKY" id="gSZ-PZ-1Vu"/>
+                        <outlet property="distanceButton" destination="6IR-N0-EC6" id="ZL1-Me-wWy"/>
+                        <outlet property="mapTypeButton" destination="Wsg-Nr-OyG" id="3Hd-p3-6jU"/>
                         <outlet property="mapView" destination="W2W-gP-1Tq" id="MW0-N3-kz2"/>
-                        <outlet property="youButton" destination="6UT-G7-fTk" id="pcd-1R-6tD"/>
+                        <outlet property="zoomTypeButton" destination="voO-dZ-pOa" id="Bki-7J-OHG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mis-Hk-wTD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1433" y="4"/>
+            <point key="canvasLocation" x="2245" y="4"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="ZP7-dw-IVK">
