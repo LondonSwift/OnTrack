@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import LSRepeater
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,8 +16,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func setupDefaults() {
         let defaults = NSUserDefaults.standardUserDefaults()
-        if defaults.objectForKey("prox") == nil {
-            defaults.setBool(true, forKey:"prox");
+        if defaults.objectForKey("file") == nil {
+            defaults.setObject("local.gpx", forKey:"file");
             defaults.synchronize();
         }
     }
@@ -24,14 +25,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(app: UIApplication, openURL url: NSURL, options: [String : AnyObject]) -> Bool {
         self.setupDefaults()
         let data = NSData(contentsOfURL: url)
-        let storeURL = NSURL.applicationDocumentsDirectory().URLByAppendingPathComponent("local.gpx")
-        
-        data?.writeToURL(storeURL, atomically: true)
-        
+        data?.writeToURL(NSURL.applicationDocumentsDirectory().URLByAppendingPathComponent("local.gpx"), atomically: true)
         return true
     }
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        
+     
         return true
     }
 }

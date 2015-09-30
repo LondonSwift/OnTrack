@@ -9,12 +9,12 @@
 import UIKit
 import MapKit
 import AudioToolbox
+import LSRepeater
 
 public enum MapType: String {
     case AppleStandard = "Std"
     case AppleSatellite = "Sat"
     case AppleHybrid = "Mix"
-    case OpenCycleMap = "Bike"
 }
 
 public enum ZoomType: String {
@@ -23,9 +23,19 @@ public enum ZoomType: String {
 }
 
 class MapViewController: UIViewController {
-    var locationArray:Array<CLLocation>?
+    
+    var repeater: LSRepeater?
+    
+    var currentLocation: CLLocation?
+    
+    var currentLocationToNearestPolyline:MKPolyline?
+    var currentLocationToNearestRenderer:MKPolylineRenderer?
+    
+    // For displaying the lines of the route
     var polylineArray:Array<MKPolyline>?
     var rendererArray:Array<MKPolylineRenderer>?
+    
+    // the actual array of arrays of points, for off track detection
     var interpolatedLocationArray:Array<CLLocation>?
     
     @IBOutlet weak var mapTypeButton: UIButton!
@@ -33,91 +43,64 @@ class MapViewController: UIViewController {
     
     @IBOutlet weak var mapView: MKMapView!
     
-    @IBOutlet weak var bottomBar: UIVisualEffectView!
-    @IBOutlet weak var leftBar: UIVisualEffectView!
     var mapType:MapType = .AppleStandard
     var zoomType:ZoomType = .All
     var boundingRect:MKMapRect?
     var overlay:MKTileOverlay?
-    
     
     var locationManager: CLLocationManager!
     
     var found = false
     
     @IBOutlet weak var distanceButton: UIButton!
-    lazy var locationArrayArray:Array<Array<CLLocation>> = {
+    var locationArrayArray:Array<Array<CLLocation>>?
+    
+    func loadRoute(filename:String) {
+        let url = NSURL.applicationDocumentsDirectory().URLByAppendingPathComponent(filename)
         
-        var locationArrayArray = Array<Array<CLLocation>>()
+        self.locationArrayArray = Array<Array<CLLocation>>()
         
-        
-        let url = NSURL.applicationDocumentsDirectory().URLByAppendingPathComponent("local.gpx")
-        
-        
-        var fileManager = NSFileManager.defaultManager()
-        
-        
-        
-        if (fileManager.fileExistsAtPath(url.absoluteString )) {
+        if let root = GPXParser.parseGPXAtURL(url) {
             
-            if let root = GPXParser.parseGPXAtURL(url) {
-                
-                if let tracks = root.tracks {
-                    for track in tracks as! [GPXTrack] {
-                        
-                        for trackSegment in track.tracksegments as! [GPXTrackSegment] {
-                            var array = [CLLocation]()
-                            for trackPoint in  trackSegment.trackpoints as! [GPXTrackPoint] {
-                                let location = CLLocation(latitude: CLLocationDegrees(trackPoint.latitude), longitude: CLLocationDegrees(trackPoint.longitude))
-                                array.append(location)
-                            }
-                            locationArrayArray.append(array)
-                        }
-                    }
-                }
-                
-                if let routes = root.routes {
-                    for route in routes as! [GPXRoute] {
+            if let tracks = root.tracks {
+                for track in tracks as! [GPXTrack] {
+                    
+                    for trackSegment in track.tracksegments as! [GPXTrackSegment] {
                         var array = [CLLocation]()
-                        
-                        for routePoint in  route.routepoints as! [GPXRoutePoint] {
-                            let location = CLLocation(latitude: CLLocationDegrees(routePoint.latitude), longitude: CLLocationDegrees(routePoint.longitude))
+                        for trackPoint in  trackSegment.trackpoints as! [GPXTrackPoint] {
+                            let location = CLLocation(latitude: CLLocationDegrees(trackPoint.latitude), longitude: CLLocationDegrees(trackPoint.longitude))
                             array.append(location)
                         }
-                        
-                        locationArrayArray.append(array)
+                        self.locationArrayArray!.append(array)
                     }
+                }
+            }
+            
+            if let routes = root.routes {
+                for route in routes as! [GPXRoute] {
+                    var array = [CLLocation]()
+                    
+                    for routePoint in  route.routepoints as! [GPXRoutePoint] {
+                        let location = CLLocation(latitude: CLLocationDegrees(routePoint.latitude), longitude: CLLocationDegrees(routePoint.longitude))
+                        array.append(location)
+                    }
+                    
+                    self.locationArrayArray!.append(array)
                 }
             }
         }
         
-        return locationArrayArray;
-        
-        }()
+        self.interpolateWith(5)
+        self.popolateMapWithPolyline()
+        self.zoomMapToRoute()
+    }
     
     @IBAction func didPressMapTypeButton(sender: AnyObject) {
         
-        switch self.mapType {
-        case .AppleStandard:
-            self.mapType = .AppleSatellite
-        case .AppleSatellite:
-            self.mapType = .AppleHybrid
-        case .AppleHybrid:
-            self.mapType = .OpenCycleMap
-        case .OpenCycleMap:
-            self.mapType = .AppleSatellite
-        }
+        self.mapType = [MapType.AppleSatellite ,MapType.AppleHybrid, MapType.AppleStandard][[MapType.AppleStandard, MapType.AppleSatellite, MapType.AppleHybrid].indexOf(self.mapType)!]
         
         self.updateMapTypeButton()
-        
         self.updateMapType()
-    }
-    
-    func updateMapTypeButton() {
-        self.mapTypeButton.setTitle(self.mapType.rawValue, forState: .Normal)
-    }
-    func updateZoomTypeButton() {
-        self.zoomTypeButton.setTitle(self.zoomType.rawValue, forState: .Normal)
     }
     
     @IBAction func didPressZoomTypeButton(sender: AnyObject) {
@@ -131,6 +114,21 @@ class MapViewController: UIViewController {
         
     }
     
+    func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        let vc = segue.destinationViewController as! FileListTableViewController
+        
+        vc.delegate = self
+    }
+    
+    func updateMapTypeButton() {
+        self.mapTypeButton.setTitle(self.mapType.rawValue, forState: .Normal)
+    }
+    func updateZoomTypeButton() {
+        self.zoomTypeButton.setTitle(self.zoomType.rawValue, forState: .Normal)
+    }
+    
+
     
     func updateZoomType() {
         switch self.zoomType {
@@ -142,29 +140,23 @@ class MapViewController: UIViewController {
         }
     }
     
-    
-    @IBAction func didPressAllButton(sender: AnyObject) {
-        self.calculateBoundingRect()
-        self.zoomMapToRoute()
-    }
-    
-    @IBAction func didPressYouButton(sender: AnyObject) {
-        
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.interpolateWith(5)
         self.mapView.delegate = self
         self.mapView.showsUserLocation = true
-        self.popolateMapWithPolyline()
-        self.zoomMapToRoute()
         self.updateMapType()
-        self.updateMapTypeButton()
         self.updateZoomType()
         self.updateZoomTypeButton()
+        self.updateMapTypeButton()
         self.setupLocationManager()
+        
+        let defaults = NSUserDefaults.standardUserDefaults()
+        
+        if let file = defaults.objectForKey("file") as? String {
+            self.loadRoute(file)
+        }
+        
     }
     
     func setupLocationManager() {
@@ -176,18 +168,6 @@ class MapViewController: UIViewController {
         
         self.locationManager.requestWhenInUseAuthorization()
         self.locationManager.startUpdatingLocation()
-        
-    }
-    
-    func populateWithPoints()
-    {
-        if let locationArray = self.locationArray {
-            for location in locationArray {
-                let annotation = MKPointAnnotation()
-                annotation.coordinate = location.coordinate;
-                self.mapView.addAnnotation(annotation);
-            }
-        }
     }
     
     func calculateBoundingRect () {
@@ -224,8 +204,7 @@ class MapViewController: UIViewController {
         self.polylineArray = Array<MKPolyline>()
         self.rendererArray = Array<MKPolylineRenderer>()
         
-        
-        for locationArray in self.locationArrayArray {
+        for locationArray in self.locationArrayArray! {
             let coordinates = UnsafeMutablePointer<CLLocationCoordinate2D>.alloc(locationArray.count)
             var i = 0
             for location in locationArray {
@@ -244,10 +223,7 @@ class MapViewController: UIViewController {
             self.mapView.addOverlay(polyline, level:.AboveLabels);
         }
         
-        
         self.calculateBoundingRect()
-        
-        
     }
     
     func zoomMapToRoute() {
@@ -273,19 +249,7 @@ class MapViewController: UIViewController {
             self.mapView.mapType = .Satellite;
         case .AppleHybrid:
             self.mapView.mapType = .Hybrid;
-        case .OpenCycleMap:
-            self.addStreetMap();
-        default:
-            break;
         }
-        
-    }
-    
-    func addStreetMap() {
-        let template = "http://b.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png"
-        self.overlay = MKTileOverlay(URLTemplate:template)
-        self.overlay?.canReplaceMapContent = true
-        self.mapView.addOverlay(self.overlay!, level:.AboveLabels)
     }
 }
 
@@ -315,27 +279,24 @@ extension MapViewController : MKMapViewDelegate {
                         return rendererArray[i]
                     }
                 }
+                else {
+                    print("not found")
+                }
                 
             }
         }
-        
         return MKTileOverlayRenderer(overlay: overlay)
-        
     }
-    
     
     func interpolateWith(metres: CLLocationDistance) {
         self.interpolatedLocationArray = [CLLocation]()
         var lastLocation: CLLocation?
         
-        for locationArray in self.locationArrayArray {
+        for locationArray in self.locationArrayArray! {
             for location in locationArray {
                 if let lastLocation = lastLocation {
                     let distance = location.distanceFromLocation(lastLocation)
                     let bearing = self.bearingToLocation(location, fromLocation:lastLocation);
-                    
-                    print(distance / metres)
-                    
                     for var i:CLLocationDistance = 0 ; i < distance / metres ; i++ {
                         
                         let cooridinate = self.locationWithBearing(bearing, distance:metres*i, origin:lastLocation.coordinate)
@@ -393,36 +354,102 @@ extension MapViewController : CLLocationManagerDelegate {
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
-        let currentLocation = locations.first
+        self.currentLocation = locations.first
         
-        var minimumDistance: CLLocationDistance = CLLocationDistance.infinity;
-        
-        if let interpolatedLocationArray = self.interpolatedLocationArray {
-            
-            for location in interpolatedLocationArray {
-                let distance = location.distanceFromLocation(currentLocation!);
-                minimumDistance = min(minimumDistance, distance);
+        if self.repeater == nil {
+            self.repeater = LSRepeater.repeater(5, execute: { () -> Void in
                 
-            }
-            
-            let warningDistance:CLLocationDistance = 100
-            
-            if minimumDistance > warningDistance {
-                AudioServicesPlaySystemSound (1033);
-                self.found = false;
-            }
-            else {
-                if self.found == false {
-                    AudioServicesPlaySystemSound (1028);
+                var minimumDistance: CLLocationDistance = CLLocationDistance.infinity;
+                
+                var closestLocation: CLLocation?
+                
+                if let interpolatedLocationArray = self.interpolatedLocationArray {
+                    
+                    for location in interpolatedLocationArray {
+                        let distance = location.distanceFromLocation(self.currentLocation!);
+                        minimumDistance = min(minimumDistance, distance);
+                        
+                        if minimumDistance == distance {
+                            closestLocation = location
+                        }
+                        
+                    }
+                    
+                    let warningDistance:CLLocationDistance = 100
+                    
+                    if minimumDistance > warningDistance {
+                        AudioServicesPlaySystemSound (1033);
+                        self.found = false;
+                    }
+                    else {
+                        if self.found == false {
+                            AudioServicesPlaySystemSound (1028);
+                        }
+                        self.found = true;
+                    }
+                    
+                    self.distanceButton.setTitle(String(format:"%.2fm", minimumDistance), forState: .Normal)
+                    
                 }
-                self.found = true;
-            }
-            
-            self.distanceButton.setTitle(String(format:"%.2fm", minimumDistance), forState: .Normal)
-            
+                
+                // remove closest line
+                
+                if let currentLocationToNearestPolyline = self.currentLocationToNearestPolyline {
+                    if let index = self.polylineArray?.indexOf(currentLocationToNearestPolyline) {
+                        self.polylineArray?.removeAtIndex(index)
+                    }
+                }
+                
+                if let currentLocationToNearestRenderer = self.currentLocationToNearestRenderer {
+                    if let index = self.rendererArray?.indexOf(currentLocationToNearestRenderer) {
+                        self.rendererArray?.removeAtIndex(index)
+                    }
+                }
+                // end remove closest line
+                
+                // add closest line
+                if let currentLocation = self.currentLocation, closestLocation = closestLocation {
+                    
+                    let coordinates = UnsafeMutablePointer<CLLocationCoordinate2D>.alloc(2)
+                    coordinates[0] = currentLocation.coordinate;
+                    coordinates[1] = closestLocation.coordinate;
+                    
+                    self.currentLocationToNearestPolyline = MKPolyline(coordinates: coordinates, count: 2)
+                    self.currentLocationToNearestRenderer = MKPolylineRenderer(polyline: self.currentLocationToNearestPolyline!)
+                    
+                    self.currentLocationToNearestRenderer!.strokeColor = UIColor.redColor()
+                    self.currentLocationToNearestRenderer!.lineWidth = 1;
+                    //      self.currentLocationToNearestPolyline!.lineDashPattern = 5
+                    
+                    self.polylineArray?.append(self.currentLocationToNearestPolyline!)
+                    self.rendererArray?.append(self.currentLocationToNearestRenderer!)
+                    
+                    self.mapView.addOverlay(self.currentLocationToNearestPolyline!, level:.AboveLabels);
+                }
+                // end add closest line
+                
+            })
         }
         
+        
+        
     }
+}
+
+extension MapViewController : FileListTableViewControllerDelegate {
+    
+    func fileListTableViewController(fileListTableViewController: FileListTableViewController, didSelectFile: String){
+  
+        self.loadRoute(didSelectFile)
+        
+        }
+    }
+    
+    func fileListTableViewControllerDidCancel(fileListTableViewController: FileListTableViewController){
+        self.dismissViewControllerAnimated(true) { () -> Void in
+            
+    }
+    
 }
 
 

@@ -5,16 +5,6 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
-        <scene sceneID="MHK-9p-TaJ">
-            <objects>
-                <viewController id="fV7-QE-jhu" sceneMemberID="viewController">
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dTn-LP-d2W" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-96" y="-248"/>
-        </scene>
         <!--File List Table View Controller-->
         <scene sceneID="K6i-dy-1ys">
             <objects>
@@ -55,12 +45,53 @@
                             <outlet property="delegate" destination="jur-NY-zg2" id="5mN-1z-dI5"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="Oai-7G-4uc"/>
+                    <navigationItem key="navigationItem" id="Oai-7G-4uc">
+                        <barButtonItem key="rightBarButtonItem" title="Cancel" id="EFR-F7-yUW">
+                            <connections>
+                                <action selector="didPressCancel:" destination="jur-NY-zg2" id="q8p-tM-3W6"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="A6q-1t-aUX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1037" y="347"/>
+            <point key="canvasLocation" x="2245" y="611"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="nGv-81-9Yr">
+            <objects>
+                <viewController id="LQY-35-xFV" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="iVQ-SW-fEH"/>
+                        <viewControllerLayoutGuide type="bottom" id="o7G-xU-jiv"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="0o9-Dd-yap">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OnTrack" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NKX-FT-5KG">
+                                <rect key="frame" x="20" y="439" width="64" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="nsi-EK-U1c"/>
+                                    <constraint firstAttribute="width" constant="64" id="vTm-lJ-2ry"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="o7G-xU-jiv" firstAttribute="top" secondItem="NKX-FT-5KG" secondAttribute="bottom" constant="20" id="5ah-dV-9Vq"/>
+                            <constraint firstItem="NKX-FT-5KG" firstAttribute="leading" secondItem="0o9-Dd-yap" secondAttribute="leading" constant="20" id="rxy-a7-hrn"/>
+                        </constraints>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dDo-B4-qLr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1856" y="12"/>
         </scene>
         <!--Pennine Bridleway-->
         <scene sceneID="cdL-ps-34F">
@@ -75,7 +106,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="W2W-gP-1Tq">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                                <rect key="frame" x="0.0" y="44" width="320" height="436"/>
                                 <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <outlet property="delegate" destination="19e-2H-MdI" id="6Mj-8K-Hcz"/>
@@ -92,6 +123,11 @@
                                 <state key="normal" title="Pennine Bridleway">
                                     <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <connections>
+                                    <segue destination="7Kh-ui-V8W" kind="popoverPresentation" popoverAnchorView="HOa-Hz-luh" id="gV2-In-khx">
+                                        <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                    </segue>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wsg-Nr-OyG">
                                 <rect key="frame" x="260" y="420" width="60" height="60"/>
@@ -194,7 +230,7 @@
                             <constraint firstAttribute="bottom" secondItem="Aru-9S-ezu" secondAttribute="bottom" id="X5s-Ek-v98"/>
                             <constraint firstItem="6UT-G7-fTk" firstAttribute="leading" secondItem="Aru-9S-ezu" secondAttribute="trailing" id="aPj-kL-S6P"/>
                             <constraint firstItem="BNj-Dz-Cts" firstAttribute="top" secondItem="voO-dZ-pOa" secondAttribute="bottom" id="bEr-fY-Uoy"/>
-                            <constraint firstItem="W2W-gP-1Tq" firstAttribute="top" secondItem="RAB-4R-IBF" secondAttribute="top" id="dEu-Bn-tWm"/>
+                            <constraint firstItem="W2W-gP-1Tq" firstAttribute="top" secondItem="RAB-4R-IBF" secondAttribute="top" constant="44" id="dEu-Bn-tWm"/>
                             <constraint firstAttribute="trailing" secondItem="6UT-G7-fTk" secondAttribute="trailing" id="dJI-AO-6jr"/>
                             <constraint firstAttribute="trailing" secondItem="Aru-9S-ezu" secondAttribute="trailing" constant="64" id="e59-Fi-ksw"/>
                             <constraint firstItem="6UT-G7-fTk" firstAttribute="leading" secondItem="RAB-4R-IBF" secondAttribute="leading" constant="18" id="fHt-nk-8kB"/>
@@ -252,7 +288,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pdb-IZ-81j" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="225" y="347"/>
+            <point key="canvasLocation" x="1825" y="595"/>
         </scene>
     </scenes>
 </document>
