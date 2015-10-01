@@ -1,14 +1,22 @@
 PODS:
+  - Crashlytics (3.3.1)
+  - Fabric (1.5.1):
+    - Fabric/Base (= 1.5.1)
+  - Fabric/Base (1.5.1)
   - iOS-GPX-Framework (0.0.2):
     - TBXML (~> 1.5)
   - LSRepeater (0.0.5)
   - TBXML (1.5)
 
 DEPENDENCIES:
+  - Crashlytics
+  - Fabric
   - iOS-GPX-Framework (~> 0.0)
   - LSRepeater
 
 SPEC CHECKSUMS:
+  Crashlytics: 0e61bdda9def51f1e99720f804eebe94865442b2
+  Fabric: 03c3b3fe77e11a2bc31421b989a9c7adaa4779a5
   iOS-GPX-Framework: f6d50c6664a1747746b73da6899b1fc9a1f81ff6
   LSRepeater: f5dbef2ef12392c6ed33b05540cddf14d7e8ecad
   TBXML: 9f9dadb239f2f2af1dadb87fe43a0ce6e479379a

@@ -12,5 +12,10 @@ extension NSURL {
     class func applicationDocumentsDirectory() -> NSURL {
         return NSURL(fileURLWithPath: NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0])
     }
+
+    class func applicationBundleDirectory() -> NSURL {
+        return NSURL(fileURLWithPath: NSBundle.mainBundle().bundlePath)
+    }
+
 }
   

@@ -35,6 +35,7 @@ class MapViewController: UIViewController {
     var polylineArray:Array<MKPolyline>?
     var rendererArray:Array<MKPolylineRenderer>?
     
+    @IBOutlet weak var titleButton: UIButton!
     // the actual array of arrays of points, for off track detection
     var interpolatedLocationArray:Array<CLLocation>?
     
@@ -56,6 +57,21 @@ class MapViewController: UIViewController {
     var locationArrayArray:Array<Array<CLLocation>>?
     
     func loadRoute(filename:String) {
+        
+        if let polyineArray = self.polylineArray {
+            self.mapView.removeOverlays(polyineArray)
+        }
+       
+        self.distanceButton.setTitle("", forState: .Normal)
+        
+        self.titleButton .setTitle(filename, forState: .Normal)
+        self.titleButton .setTitle(filename, forState: .Normal)
+        
+        self.polylineArray = nil
+        self.rendererArray = nil
+        self.currentLocationToNearestPolyline = nil
+        self.currentLocationToNearestRenderer = nil
+        
         let url = NSURL.applicationDocumentsDirectory().URLByAppendingPathComponent(filename)
         
         self.locationArrayArray = Array<Array<CLLocation>>()
@@ -114,9 +130,10 @@ class MapViewController: UIViewController {
         
     }
     
-    func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
-        let vc = segue.destinationViewController as! FileListTableViewController
+        let nc = segue.destinationViewController as! UINavigationController
+        let vc = nc.viewControllers[0] as! FileListTableViewController
         
         vc.delegate = self
     }
@@ -128,7 +145,7 @@ class MapViewController: UIViewController {
         self.zoomTypeButton.setTitle(self.zoomType.rawValue, forState: .Normal)
     }
     
-
+    
     
     func updateZoomType() {
         switch self.zoomType {
@@ -161,12 +178,13 @@ class MapViewController: UIViewController {
     
     func setupLocationManager() {
         self.locationManager = CLLocationManager()
+        self.locationManager.allowsBackgroundLocationUpdates = true
+        self.locationManager.requestWhenInUseAuthorization()
         self.locationManager.delegate = self
         
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
         self.locationManager.delegate = self;
         
-        self.locationManager.requestWhenInUseAuthorization()
         self.locationManager.startUpdatingLocation()
     }
     
@@ -393,6 +411,10 @@ extension MapViewController : CLLocationManagerDelegate {
                 }
                 
                 // remove closest line
+         
+                if let currentLocationToNearestPolyline = self.currentLocationToNearestPolyline {
+                self.mapView.removeOverlay(currentLocationToNearestPolyline)
+                }
                 
                 if let currentLocationToNearestPolyline = self.currentLocationToNearestPolyline {
                     if let index = self.polylineArray?.indexOf(currentLocationToNearestPolyline) {
@@ -405,7 +427,7 @@ extension MapViewController : CLLocationManagerDelegate {
                         self.rendererArray?.removeAtIndex(index)
                     }
                 }
-                // end remove closest line
+         // end remove closest line
                 
                 // add closest line
                 if let currentLocation = self.currentLocation, closestLocation = closestLocation {
@@ -439,17 +461,21 @@ extension MapViewController : CLLocationManagerDelegate {
 extension MapViewController : FileListTableViewControllerDelegate {
     
     func fileListTableViewController(fileListTableViewController: FileListTableViewController, didSelectFile: String){
-  
-        self.loadRoute(didSelectFile)
-        
+        self.dismissViewControllerAnimated(true) { () -> Void in
+            self.loadRoute(didSelectFile)
+            
+            let defaults = NSUserDefaults.standardUserDefaults()
+            if defaults.objectForKey("file") == nil {
+                defaults.setObject(didSelectFile, forKey:"file");
+                defaults.synchronize();
+            }
         }
     }
     
     func fileListTableViewControllerDidCancel(fileListTableViewController: FileListTableViewController){
         self.dismissViewControllerAnimated(true) { () -> Void in
-            
+        }
     }
-    
 }
 
 

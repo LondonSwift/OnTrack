@@ -18,6 +18,11 @@
 		D6A242091B985A90001FA00D /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6A242081B985A90001FA00D /* AudioToolbox.framework */; };
 		D6CC617D1BBADB2A00D79B96 /* NSURL+applicationDocumentsDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6CC617C1BBADB2A00D79B96 /* NSURL+applicationDocumentsDirectory.swift */; settings = {ASSET_TAGS = (); }; };
 		D6CC61A11BBBCCBC00D79B96 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6CC61A01BBBCCBC00D79B96 /* Launch Screen.storyboard */; settings = {ASSET_TAGS = (); }; };
+		D6CC61AB1BBBF89D00D79B96 /* BrenigLoop.gpx in Resources */ = {isa = PBXBuildFile; fileRef = D6CC61A41BBBF89D00D79B96 /* BrenigLoop.gpx */; settings = {ASSET_TAGS = (); }; };
+		D6CC61AD1BBBF89D00D79B96 /* Peak200.gpx in Resources */ = {isa = PBXBuildFile; fileRef = D6CC61A61BBBF89D00D79B96 /* Peak200.gpx */; settings = {ASSET_TAGS = (); }; };
+		D6CC61AE1BBBF89D00D79B96 /* PennineBridlewayDouble.gpx in Resources */ = {isa = PBXBuildFile; fileRef = D6CC61A71BBBF89D00D79B96 /* PennineBridlewayDouble.gpx */; settings = {ASSET_TAGS = (); }; };
+		D6CC61AF1BBBF89D00D79B96 /* PennineBridlewayComplete.gpx in Resources */ = {isa = PBXBuildFile; fileRef = D6CC61A81BBBF89D00D79B96 /* PennineBridlewayComplete.gpx */; settings = {ASSET_TAGS = (); }; };
+		D6CC61B01BBBF89D00D79B96 /* TheRidgeway.gpx in Resources */ = {isa = PBXBuildFile; fileRef = D6CC61A91BBBF89D00D79B96 /* TheRidgeway.gpx */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +42,11 @@
 		D6AB9D8C1B9715110087BC30 /* Bridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Bridge.h; sourceTree = "<group>"; };
 		D6CC617C1BBADB2A00D79B96 /* NSURL+applicationDocumentsDirectory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSURL+applicationDocumentsDirectory.swift"; sourceTree = "<group>"; };
 		D6CC61A01BBBCCBC00D79B96 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		D6CC61A41BBBF89D00D79B96 /* BrenigLoop.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = BrenigLoop.gpx; sourceTree = "<group>"; };
+		D6CC61A61BBBF89D00D79B96 /* Peak200.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Peak200.gpx; sourceTree = "<group>"; };
+		D6CC61A71BBBF89D00D79B96 /* PennineBridlewayDouble.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = PennineBridlewayDouble.gpx; sourceTree = "<group>"; };
+		D6CC61A81BBBF89D00D79B96 /* PennineBridlewayComplete.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = PennineBridlewayComplete.gpx; sourceTree = "<group>"; };
+		D6CC61A91BBBF89D00D79B96 /* TheRidgeway.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = TheRidgeway.gpx; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +103,7 @@
 		D63F8C8E1B95D85600D2F8F7 /* OnTrack */ = {
 			isa = PBXGroup;
 			children = (
+				D6CC61A31BBBF89400D79B96 /* GPX */,
 				D6CC617C1BBADB2A00D79B96 /* NSURL+applicationDocumentsDirectory.swift */,
 				D639507F1BB7BFD5009BE0D5 /* FileListTableViewCell.swift */,
 				D639507B1BB7B871009BE0D5 /* FileListTableViewController.swift */,
@@ -115,6 +126,18 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		D6CC61A31BBBF89400D79B96 /* GPX */ = {
+			isa = PBXGroup;
+			children = (
+				D6CC61A41BBBF89D00D79B96 /* BrenigLoop.gpx */,
+				D6CC61A61BBBF89D00D79B96 /* Peak200.gpx */,
+				D6CC61A71BBBF89D00D79B96 /* PennineBridlewayDouble.gpx */,
+				D6CC61A81BBBF89D00D79B96 /* PennineBridlewayComplete.gpx */,
+				D6CC61A91BBBF89D00D79B96 /* TheRidgeway.gpx */,
+			);
+			name = GPX;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -128,6 +151,7 @@
 				D63F8C8A1B95D85600D2F8F7 /* Resources */,
 				591249A9CD98EFB8C2916D17 /* Copy Pods Resources */,
 				CBD1F9EF0950E1FF8CC12DE2 /* Embed Pods Frameworks */,
+				D6CC61B21BBC141F00D79B96 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -177,8 +201,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D6CC61AB1BBBF89D00D79B96 /* BrenigLoop.gpx in Resources */,
+				D6CC61B01BBBF89D00D79B96 /* TheRidgeway.gpx in Resources */,
 				D6CC61A11BBBCCBC00D79B96 /* Launch Screen.storyboard in Resources */,
+				D6CC61AF1BBBF89D00D79B96 /* PennineBridlewayComplete.gpx in Resources */,
+				D6CC61AE1BBBF89D00D79B96 /* PennineBridlewayDouble.gpx in Resources */,
 				D63F8C971B95D85600D2F8F7 /* Main.storyboard in Resources */,
+				D6CC61AD1BBBF89D00D79B96 /* Peak200.gpx in Resources */,
 				D63F8C991B95D85600D2F8F7 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -215,6 +244,19 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		D6CC61B21BBC141F00D79B96 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/Fabric.framework/run\" 3ef96aea5c3fc3bce538d64de1b929e339cf407f 1280a7ecf875ed15aa7be8f93a3ffa0387bdf2b0dbfc4848097db199ccbd51df";
 		};
 		EDA1015036FF984989B6BE95 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -351,9 +393,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				HEADER_SEARCH_PATHS = "pods/**";
 				INFOPLIST_FILE = OnTrack/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.LondonSwift.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = OnTrack/Bridge.h;
 			};
 			name = Debug;
@@ -363,11 +407,14 @@
 			baseConfigurationReference = D12F0064A1894A1FC07BBF36 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				HEADER_SEARCH_PATHS = "pods/**";
 				INFOPLIST_FILE = OnTrack/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.LondonSwift.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "3afe2dea-7d25-4719-9ade-a0da4f0f761b";
 				SWIFT_OBJC_BRIDGING_HEADER = OnTrack/Bridge.h;
 			};
 			name = Release;

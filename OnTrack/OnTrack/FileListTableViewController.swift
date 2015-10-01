@@ -10,12 +10,8 @@ import UIKit
 
 protocol FileListTableViewControllerDelegate {
     func fileListTableViewController(fileListTableViewController: FileListTableViewController, didSelectFile: String)
-    
     func fileListTableViewControllerDidCancel(fileListTableViewController: FileListTableViewController)
-    
 }
-
-
 
 class FileListTableViewController: UITableViewController {
     
@@ -35,7 +31,16 @@ class FileListTableViewController: UITableViewController {
     lazy var fileList: [String] = {
         
         do {
-            return try self.fileManager.contentsOfDirectoryAtPath(NSURL.applicationDocumentsDirectory().path!)
+            var list = try self.fileManager.contentsOfDirectoryAtPath(NSURL.applicationDocumentsDirectory().path!)
+            
+            print(list)
+            if let index = list.indexOf("Inbox") {
+                list.removeAtIndex(index)
+            }
+            print(list)
+            
+            return list
+            
         }
         catch {
             print(error)
