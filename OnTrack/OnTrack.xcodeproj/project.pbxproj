@@ -8,21 +8,21 @@
 
 /* Begin PBXBuildFile section */
 		1F68BC3D15DA1BAC5190EF56 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AD675B2C451C2D0EEEC8128 /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		D639507C1BB7B871009BE0D5 /* FileListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D639507B1BB7B871009BE0D5 /* FileListTableViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		D63950801BB7BFD5009BE0D5 /* FileListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D639507F1BB7BFD5009BE0D5 /* FileListTableViewCell.swift */; settings = {ASSET_TAGS = (); }; };
+		D639507C1BB7B871009BE0D5 /* FileListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D639507B1BB7B871009BE0D5 /* FileListTableViewController.swift */; };
+		D63950801BB7BFD5009BE0D5 /* FileListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D639507F1BB7BFD5009BE0D5 /* FileListTableViewCell.swift */; };
 		D63F8C921B95D85600D2F8F7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63F8C911B95D85600D2F8F7 /* AppDelegate.swift */; };
 		D63F8C971B95D85600D2F8F7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D63F8C951B95D85600D2F8F7 /* Main.storyboard */; };
-		D63F8C991B95D85600D2F8F7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D63F8C981B95D85600D2F8F7 /* Images.xcassets */; };
 		D63F8CB21B95F63700D2F8F7 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63F8CB11B95F63700D2F8F7 /* MapViewController.swift */; };
 		D63F8CB41B95F79200D2F8F7 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D63F8CB31B95F79200D2F8F7 /* MapKit.framework */; };
+		D651A60D1C14718200FCFB40 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D651A60C1C14718200FCFB40 /* Images.xcassets */; };
 		D6A242091B985A90001FA00D /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6A242081B985A90001FA00D /* AudioToolbox.framework */; };
-		D6CC617D1BBADB2A00D79B96 /* NSURL+applicationDocumentsDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6CC617C1BBADB2A00D79B96 /* NSURL+applicationDocumentsDirectory.swift */; settings = {ASSET_TAGS = (); }; };
-		D6CC61A11BBBCCBC00D79B96 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6CC61A01BBBCCBC00D79B96 /* Launch Screen.storyboard */; settings = {ASSET_TAGS = (); }; };
-		D6CC61AB1BBBF89D00D79B96 /* BrenigLoop.gpx in Resources */ = {isa = PBXBuildFile; fileRef = D6CC61A41BBBF89D00D79B96 /* BrenigLoop.gpx */; settings = {ASSET_TAGS = (); }; };
-		D6CC61AD1BBBF89D00D79B96 /* Peak200.gpx in Resources */ = {isa = PBXBuildFile; fileRef = D6CC61A61BBBF89D00D79B96 /* Peak200.gpx */; settings = {ASSET_TAGS = (); }; };
-		D6CC61AE1BBBF89D00D79B96 /* PennineBridlewayDouble.gpx in Resources */ = {isa = PBXBuildFile; fileRef = D6CC61A71BBBF89D00D79B96 /* PennineBridlewayDouble.gpx */; settings = {ASSET_TAGS = (); }; };
-		D6CC61AF1BBBF89D00D79B96 /* PennineBridlewayComplete.gpx in Resources */ = {isa = PBXBuildFile; fileRef = D6CC61A81BBBF89D00D79B96 /* PennineBridlewayComplete.gpx */; settings = {ASSET_TAGS = (); }; };
-		D6CC61B01BBBF89D00D79B96 /* TheRidgeway.gpx in Resources */ = {isa = PBXBuildFile; fileRef = D6CC61A91BBBF89D00D79B96 /* TheRidgeway.gpx */; settings = {ASSET_TAGS = (); }; };
+		D6CC617D1BBADB2A00D79B96 /* NSURL+applicationDocumentsDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6CC617C1BBADB2A00D79B96 /* NSURL+applicationDocumentsDirectory.swift */; };
+		D6CC61A11BBBCCBC00D79B96 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6CC61A01BBBCCBC00D79B96 /* Launch Screen.storyboard */; };
+		D6CC61AB1BBBF89D00D79B96 /* BrenigLoop.gpx in Resources */ = {isa = PBXBuildFile; fileRef = D6CC61A41BBBF89D00D79B96 /* BrenigLoop.gpx */; };
+		D6CC61AD1BBBF89D00D79B96 /* Peak200.gpx in Resources */ = {isa = PBXBuildFile; fileRef = D6CC61A61BBBF89D00D79B96 /* Peak200.gpx */; };
+		D6CC61AE1BBBF89D00D79B96 /* PennineBridlewayDouble.gpx in Resources */ = {isa = PBXBuildFile; fileRef = D6CC61A71BBBF89D00D79B96 /* PennineBridlewayDouble.gpx */; };
+		D6CC61AF1BBBF89D00D79B96 /* PennineBridlewayComplete.gpx in Resources */ = {isa = PBXBuildFile; fileRef = D6CC61A81BBBF89D00D79B96 /* PennineBridlewayComplete.gpx */; };
+		D6CC61B01BBBF89D00D79B96 /* TheRidgeway.gpx in Resources */ = {isa = PBXBuildFile; fileRef = D6CC61A91BBBF89D00D79B96 /* TheRidgeway.gpx */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,9 +35,9 @@
 		D63F8C901B95D85600D2F8F7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D63F8C911B95D85600D2F8F7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D63F8C961B95D85600D2F8F7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		D63F8C981B95D85600D2F8F7 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		D63F8CB11B95F63700D2F8F7 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		D63F8CB31B95F79200D2F8F7 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		D651A60C1C14718200FCFB40 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		D6A242081B985A90001FA00D /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		D6AB9D8C1B9715110087BC30 /* Bridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Bridge.h; sourceTree = "<group>"; };
 		D6CC617C1BBADB2A00D79B96 /* NSURL+applicationDocumentsDirectory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSURL+applicationDocumentsDirectory.swift"; sourceTree = "<group>"; };
@@ -107,10 +107,10 @@
 				D6CC617C1BBADB2A00D79B96 /* NSURL+applicationDocumentsDirectory.swift */,
 				D639507F1BB7BFD5009BE0D5 /* FileListTableViewCell.swift */,
 				D639507B1BB7B871009BE0D5 /* FileListTableViewController.swift */,
+				D651A60C1C14718200FCFB40 /* Images.xcassets */,
 				D63F8C911B95D85600D2F8F7 /* AppDelegate.swift */,
 				D63F8C951B95D85600D2F8F7 /* Main.storyboard */,
 				D63F8CB11B95F63700D2F8F7 /* MapViewController.swift */,
-				D63F8C981B95D85600D2F8F7 /* Images.xcassets */,
 				D63F8C8F1B95D85600D2F8F7 /* Supporting Files */,
 				D6AB9D8C1B9715110087BC30 /* Bridge.h */,
 				D6CC61A01BBBCCBC00D79B96 /* Launch Screen.storyboard */,
@@ -202,13 +202,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				D6CC61AB1BBBF89D00D79B96 /* BrenigLoop.gpx in Resources */,
+				D651A60D1C14718200FCFB40 /* Images.xcassets in Resources */,
 				D6CC61B01BBBF89D00D79B96 /* TheRidgeway.gpx in Resources */,
 				D6CC61A11BBBCCBC00D79B96 /* Launch Screen.storyboard in Resources */,
 				D6CC61AF1BBBF89D00D79B96 /* PennineBridlewayComplete.gpx in Resources */,
 				D6CC61AE1BBBF89D00D79B96 /* PennineBridlewayDouble.gpx in Resources */,
 				D63F8C971B95D85600D2F8F7 /* Main.storyboard in Resources */,
 				D6CC61AD1BBBF89D00D79B96 /* Peak200.gpx in Resources */,
-				D63F8C991B95D85600D2F8F7 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -391,6 +391,7 @@
 			baseConfigurationReference = 862D870810259C1C7ADBF278 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				HEADER_SEARCH_PATHS = "pods/**";
 				INFOPLIST_FILE = OnTrack/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -407,6 +408,7 @@
 			baseConfigurationReference = D12F0064A1894A1FC07BBF36 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				HEADER_SEARCH_PATHS = "pods/**";
 				INFOPLIST_FILE = OnTrack/Info.plist;

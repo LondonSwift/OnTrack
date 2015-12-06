@@ -84,6 +84,8 @@ class MapViewController: UIViewController {
         self.currentLocationToNearestPolyline = nil
         self.currentLocationToNearestRenderer = nil
         
+        self.found = false
+        
         
         let url = NSURL.applicationDocumentsDirectory().URLByAppendingPathComponent(filename)
         
@@ -211,8 +213,10 @@ class MapViewController: UIViewController {
         if let file = defaults.objectForKey("file") as? String {
             self.loadRoute(file)
         }
- 
+        
         self.locationManager.startUpdatingLocation()
+        
+        
         
     }
     
@@ -386,7 +390,6 @@ extension MapViewController : MKMapViewDelegate {
                 if accumulatedDistance > interval {
                     
                     markerArray.append(location)
-                    print(accumulatedDistance)
                     
                     accumulatedDistance = 0
                 }
@@ -476,6 +479,8 @@ extension MapViewController : MKMapViewDelegate {
     }
 }
 
+
+
 extension MapViewController : CLLocationManagerDelegate {
     
     func locationManager(manager: CLLocationManager, didUpdateToLocation newLocation: CLLocation, fromLocation oldLocation: CLLocation) {
@@ -483,7 +488,7 @@ extension MapViewController : CLLocationManagerDelegate {
         self.currentLocation = newLocation
         
         if self.repeater == nil {
-            self.repeater = LSRepeater.repeater(15, execute: { () -> Void in
+            self.repeater = LSRepeater.repeater(15, execute: { [unowned self] () -> Void in
                 
                 var minimumDistance: CLLocationDistance = CLLocationDistance.infinity;
                 
@@ -502,23 +507,25 @@ extension MapViewController : CLLocationManagerDelegate {
                     }
                     
                     if minimumDistance > 20 {
-                        
-                        let myUtterance = AVSpeechUtterance(string: "\(Int(minimumDistance)) metres off track")
-                        self.synth.speakUtterance(myUtterance)
                         self.found = false;
+                        
+                        let myUtterance = AVSpeechUtterance(string: "\(Int(minimumDistance)) metres Off")
+                        
+                        self.synth.speakUtterance(myUtterance)
                     }
+                        
                     else {
                         if self.found == false {
-                            let myUtterance = AVSpeechUtterance(string: "On Track")
+                            let myUtterance = AVSpeechUtterance(string: "Onn Track")
                             self.synth.speakUtterance(myUtterance)
+                            self.found = true
                             
                         }
-                        self.found = true;
                     }
-                    
-                    self.distanceButton.setTitle(String(format:"%.2fm", minimumDistance), forState: .Normal)
-                    
                 }
+                
+                self.distanceButton.setTitle(String(format:"%.2fm", minimumDistance), forState: .Normal)
+                
                 
                 // remove closest line
                 
@@ -559,8 +566,7 @@ extension MapViewController : CLLocationManagerDelegate {
                     self.mapView.addOverlay(self.currentLocationToNearestPolyline!, level:.AboveLabels);
                 }
                 // end add closest line
-                
-            })
+                })
         }
     }
     
@@ -572,6 +578,7 @@ extension MapViewController : FileListTableViewControllerDelegate {
         self.dismissViewControllerAnimated(true) { () -> Void in
             self.loadRoute(didSelectFile)
             
+            self.repeater?.invalidate()
             self.repeater = nil
             self.locationManager.stopUpdatingLocation()
             self.locationManager.startUpdatingLocation()
