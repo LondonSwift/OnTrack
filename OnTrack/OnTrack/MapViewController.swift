@@ -276,7 +276,7 @@ class MapViewController: UIViewController {
             let polyline = MKPolyline(coordinates: coordinates, count: locationArray.count)
             let renderer = MKPolylineRenderer(polyline: polyline)
             
-            renderer.strokeColor = UIColor.redColor()
+            renderer.strokeColor = UIColor(colorLiteralRed: 0.6, green: 0.8509, blue: 0.301, alpha: 1.0)
             renderer.lineWidth = 4;
             
             self.polylineArray?.append(polyline)
@@ -344,7 +344,7 @@ extension MapViewController : MKMapViewDelegate {
         
         if overlay is MKCircle {
             let circle = MKCircleRenderer(overlay: overlay)
-            circle.strokeColor = UIColor.blueColor()
+            circle.strokeColor = UIColor(colorLiteralRed: 0.6, green: 0.75, blue: 0.29, alpha: 1.0)
             circle.lineWidth = 5
             return circle
         }
@@ -556,7 +556,7 @@ extension MapViewController : CLLocationManagerDelegate {
                     self.currentLocationToNearestPolyline = MKPolyline(coordinates: coordinates, count: 2)
                     self.currentLocationToNearestRenderer = MKPolylineRenderer(polyline: self.currentLocationToNearestPolyline!)
                     
-                    self.currentLocationToNearestRenderer!.strokeColor = UIColor.redColor()
+                    self.currentLocationToNearestRenderer!.strokeColor = UIColor.whiteColor()
                     self.currentLocationToNearestRenderer!.lineWidth = 1;
                     //      self.currentLocationToNearestPolyline!.lineDashPattern = 5
                     

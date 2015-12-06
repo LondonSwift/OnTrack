@@ -21,7 +21,7 @@
                                 <rect key="frame" x="-84" y="-100" width="488" height="680"/>
                                 <animations/>
                             </imageView>
-                            <view alpha="0.98999999999999999" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="v1B-Og-pn6">
+                            <view alpha="0.99099999999999999" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="v1B-Og-pn6">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.84999999999999998" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ONTRACK" textAlignment="center" lineBreakMode="middleTruncation" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="GJd-Yh-RWb">
@@ -43,11 +43,20 @@
                                             </mask>
                                         </variation>
                                     </label>
+                                    <imageView userInteractionEnabled="NO" alpha="0.84999999999999998" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="OnTrackLogo" translatesAutoresizingMaskIntoConstraints="NO" id="KbD-Bb-LZH">
+                                        <rect key="frame" x="130" y="106" width="60" height="60"/>
+                                        <animations/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="60" id="Fmc-WL-JH2"/>
+                                            <constraint firstAttribute="height" constant="60" id="U82-Yf-OCh"/>
+                                        </constraints>
+                                    </imageView>
                                 </subviews>
                                 <animations/>
                                 <color key="backgroundColor" red="0.70379908738938057" green="0.84917726769911395" blue="0.30314919800884954" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="GJd-Yh-RWb" firstAttribute="centerY" secondItem="v1B-Og-pn6" secondAttribute="centerY" id="FVt-lN-smk"/>
+                                    <constraint firstItem="KbD-Bb-LZH" firstAttribute="top" secondItem="v1B-Og-pn6" secondAttribute="top" constant="106" id="cls-Mh-wpZ"/>
                                     <constraint firstAttribute="bottom" secondItem="GJd-Yh-RWb" secondAttribute="bottom" constant="20" id="lPh-14-fAD"/>
                                     <constraint firstItem="GJd-Yh-RWb" firstAttribute="centerX" secondItem="v1B-Og-pn6" secondAttribute="centerX" id="vRn-bL-OR9"/>
                                     <constraint firstAttribute="bottom" secondItem="GJd-Yh-RWb" secondAttribute="bottom" constant="8" id="yhe-xd-RQb"/>
@@ -76,6 +85,7 @@
                             <constraint firstItem="v1B-Og-pn6" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" constant="-20" id="RqZ-kE-zBN"/>
                             <constraint firstItem="jLU-my-P89" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="topMargin" constant="-100" id="Tru-TX-dZP"/>
                             <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="jLU-my-P89" secondAttribute="bottom" constant="-100" id="Ujt-Om-C4P"/>
+                            <constraint firstItem="KbD-Bb-LZH" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="XXs-TL-y7h"/>
                             <constraint firstItem="v1B-Og-pn6" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="-20" id="bRS-Wn-BPY"/>
                             <constraint firstItem="v1B-Og-pn6" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="-20" id="d4s-rP-x3g"/>
                             <constraint firstItem="v1B-Og-pn6" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="dTd-BR-1Fa"/>
@@ -116,5 +126,6 @@
     </scenes>
     <resources>
         <image name="Circle-Maze" width="1128" height="1144"/>
+        <image name="OnTrackLogo" width="200" height="200"/>
     </resources>
 </document>
