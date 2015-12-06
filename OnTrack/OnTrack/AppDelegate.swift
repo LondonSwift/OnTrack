@@ -71,6 +71,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             vc.loadRoute(path)
         }
         
+        
+        
+
+        
         return true
     }
     

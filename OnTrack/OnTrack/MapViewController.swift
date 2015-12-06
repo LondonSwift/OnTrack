@@ -10,6 +10,7 @@ import UIKit
 import MapKit
 import AudioToolbox
 import LSRepeater
+import AVFoundation
 
 public enum MapType: String {
     case AppleStandard = "Std"
@@ -24,6 +25,10 @@ public enum ZoomType: String {
 
 class MapViewController: UIViewController {
     
+    let session = AVAudioSession.sharedInstance()
+    
+    let synth = AVSpeechSynthesizer()
+    
     var repeater: LSRepeater?
     
     var currentLocation: CLLocation?
@@ -35,9 +40,12 @@ class MapViewController: UIViewController {
     var polylineArray:Array<MKPolyline>?
     var rendererArray:Array<MKPolylineRenderer>?
     
+    var mileMarkerCircleArray: Array<MKCircle>?
+    
     @IBOutlet weak var titleButton: UIButton!
     // the actual array of arrays of points, for off track detection
     var interpolatedLocationArray:Array<CLLocation>?
+    var mileMarkerArray:Array<CLLocation>?
     
     @IBOutlet weak var mapTypeButton: UIButton!
     @IBOutlet weak var zoomTypeButton: UIButton!
@@ -61,7 +69,11 @@ class MapViewController: UIViewController {
         if let polyineArray = self.polylineArray {
             self.mapView.removeOverlays(polyineArray)
         }
-       
+        
+        if let mileMarkerCircleArray = self.mileMarkerCircleArray {
+            self.mapView.removeOverlays(mileMarkerCircleArray)
+        }
+        
         self.distanceButton.setTitle("", forState: .Normal)
         
         self.titleButton .setTitle(filename, forState: .Normal)
@@ -71,6 +83,7 @@ class MapViewController: UIViewController {
         self.rendererArray = nil
         self.currentLocationToNearestPolyline = nil
         self.currentLocationToNearestRenderer = nil
+        
         
         let url = NSURL.applicationDocumentsDirectory().URLByAppendingPathComponent(filename)
         
@@ -106,8 +119,11 @@ class MapViewController: UIViewController {
             }
         }
         
-        self.interpolateWith(5)
+        self.interpolatedLocationArray = self.interpolateWith(5)
+        
+        
         self.popolateMapWithPolyline()
+        self.popolateMapWithMileMarkers(self.createMarkersAtInterval(self.interpolatedLocationArray!, interval: 1609))
         self.zoomMapToRoute()
     }
     
@@ -157,8 +173,30 @@ class MapViewController: UIViewController {
         }
     }
     
+    func setupAudio() {
+        
+        let avopts:AVAudioSessionCategoryOptions  = [
+            .MixWithOthers,
+            .DuckOthers,
+            .InterruptSpokenAudioAndMixWithOthers
+        ]
+        
+        let avcat = AVAudioSessionCategoryPlayback
+        
+        try! self.session.setCategory(avcat, withOptions: avopts)
+        
+        self.synth.delegate = self
+        
+        //  try! self.session.setActive(true)
+        
+    }
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.setupAudio()
         
         self.mapView.delegate = self
         self.mapView.showsUserLocation = true
@@ -173,6 +211,8 @@ class MapViewController: UIViewController {
         if let file = defaults.objectForKey("file") as? String {
             self.loadRoute(file)
         }
+ 
+        self.locationManager.startUpdatingLocation()
         
     }
     
@@ -181,11 +221,11 @@ class MapViewController: UIViewController {
         self.locationManager.allowsBackgroundLocationUpdates = true
         self.locationManager.requestWhenInUseAuthorization()
         self.locationManager.delegate = self
+        self.locationManager.distanceFilter = 1
         
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
         self.locationManager.delegate = self;
         
-        self.locationManager.startUpdatingLocation()
     }
     
     func calculateBoundingRect () {
@@ -232,13 +272,26 @@ class MapViewController: UIViewController {
             let polyline = MKPolyline(coordinates: coordinates, count: locationArray.count)
             let renderer = MKPolylineRenderer(polyline: polyline)
             
-            renderer.strokeColor = UIColor.darkGrayColor()
-            renderer.lineWidth = 3;
+            renderer.strokeColor = UIColor.redColor()
+            renderer.lineWidth = 4;
             
             self.polylineArray?.append(polyline)
             self.rendererArray?.append(renderer)
             
             self.mapView.addOverlay(polyline, level:.AboveLabels);
+        }
+        
+        self.calculateBoundingRect()
+    }
+    
+    func popolateMapWithMileMarkers(locationArray: [CLLocation])
+    {
+        self.mileMarkerCircleArray = Array<MKCircle>()
+        
+        for location in locationArray {
+            let circle = MKCircle(centerCoordinate: location.coordinate, radius: 1 as CLLocationDistance)
+            self.mapView.addOverlay(circle)
+            self.mileMarkerCircleArray?.append(circle)
         }
         
         self.calculateBoundingRect()
@@ -281,7 +334,17 @@ extension MapViewController : MKMapViewDelegate {
         }
     }
     
+    
+    
     func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
+        
+        if overlay is MKCircle {
+            let circle = MKCircleRenderer(overlay: overlay)
+            circle.strokeColor = UIColor.blueColor()
+            circle.lineWidth = 5
+            return circle
+        }
+        
         
         if overlay.isKindOfClass(MKTileOverlay) {
             return MKTileOverlayRenderer(overlay: overlay)
@@ -306,8 +369,49 @@ extension MapViewController : MKMapViewDelegate {
         return MKTileOverlayRenderer(overlay: overlay)
     }
     
-    func interpolateWith(metres: CLLocationDistance) {
-        self.interpolatedLocationArray = [CLLocation]()
+    func createMarkersAtInterval(interpolatedArray: [CLLocation], interval: Double) -> [CLLocation] {
+        
+        var markerArray = [CLLocation]()
+        
+        var lastLocation: CLLocation?
+        
+        var accumulatedDistance: Double = 0
+        
+        for location in interpolatedArray {
+            if let lastValidLocation = lastLocation {
+                let distance = location.distanceFromLocation(lastValidLocation)
+                
+                accumulatedDistance = accumulatedDistance + distance
+                
+                if accumulatedDistance > interval {
+                    
+                    markerArray.append(location)
+                    print(accumulatedDistance)
+                    
+                    accumulatedDistance = 0
+                }
+                
+                lastLocation = location
+                
+                
+            }
+            else {
+                
+                markerArray.append(location)
+                lastLocation = location
+            }
+            
+            
+        }
+        
+        return markerArray
+        
+    }
+    
+    
+    func interpolateWith(metres: CLLocationDistance) -> [CLLocation] {
+        var interpolatedArray = [CLLocation]()
+        
         var lastLocation: CLLocation?
         
         for locationArray in self.locationArrayArray! {
@@ -321,12 +425,16 @@ extension MapViewController : MKMapViewDelegate {
                         
                         let interpolatedLocation = CLLocation(latitude: cooridinate.latitude, longitude:cooridinate.longitude)
                         
-                        self.interpolatedLocationArray?.append(interpolatedLocation)
+                        interpolatedArray.append(interpolatedLocation)
                     }
                 }
                 lastLocation = location
             }
+            lastLocation = nil
         }
+        
+        return interpolatedArray
+        
     }
     
     func locationWithBearing(bearing:CLLocationDistance, distance:CLLocationDistance, origin:CLLocationCoordinate2D) -> CLLocationCoordinate2D {
@@ -370,12 +478,12 @@ extension MapViewController : MKMapViewDelegate {
 
 extension MapViewController : CLLocationManagerDelegate {
     
-    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    func locationManager(manager: CLLocationManager, didUpdateToLocation newLocation: CLLocation, fromLocation oldLocation: CLLocation) {
         
-        self.currentLocation = locations.first
+        self.currentLocation = newLocation
         
         if self.repeater == nil {
-            self.repeater = LSRepeater.repeater(5, execute: { () -> Void in
+            self.repeater = LSRepeater.repeater(15, execute: { () -> Void in
                 
                 var minimumDistance: CLLocationDistance = CLLocationDistance.infinity;
                 
@@ -393,15 +501,17 @@ extension MapViewController : CLLocationManagerDelegate {
                         
                     }
                     
-                    let warningDistance:CLLocationDistance = 100
-                    
-                    if minimumDistance > warningDistance {
-                        AudioServicesPlaySystemSound (1033);
+                    if minimumDistance > 20 {
+                        
+                        let myUtterance = AVSpeechUtterance(string: "\(Int(minimumDistance)) metres off track")
+                        self.synth.speakUtterance(myUtterance)
                         self.found = false;
                     }
                     else {
                         if self.found == false {
-                            AudioServicesPlaySystemSound (1028);
+                            let myUtterance = AVSpeechUtterance(string: "On Track")
+                            self.synth.speakUtterance(myUtterance)
+                            
                         }
                         self.found = true;
                     }
@@ -411,9 +521,9 @@ extension MapViewController : CLLocationManagerDelegate {
                 }
                 
                 // remove closest line
-         
+                
                 if let currentLocationToNearestPolyline = self.currentLocationToNearestPolyline {
-                self.mapView.removeOverlay(currentLocationToNearestPolyline)
+                    self.mapView.removeOverlay(currentLocationToNearestPolyline)
                 }
                 
                 if let currentLocationToNearestPolyline = self.currentLocationToNearestPolyline {
@@ -427,7 +537,7 @@ extension MapViewController : CLLocationManagerDelegate {
                         self.rendererArray?.removeAtIndex(index)
                     }
                 }
-         // end remove closest line
+                // end remove closest line
                 
                 // add closest line
                 if let currentLocation = self.currentLocation, closestLocation = closestLocation {
@@ -452,10 +562,8 @@ extension MapViewController : CLLocationManagerDelegate {
                 
             })
         }
-        
-        
-        
     }
+    
 }
 
 extension MapViewController : FileListTableViewControllerDelegate {
@@ -464,11 +572,13 @@ extension MapViewController : FileListTableViewControllerDelegate {
         self.dismissViewControllerAnimated(true) { () -> Void in
             self.loadRoute(didSelectFile)
             
+            self.repeater = nil
+            self.locationManager.stopUpdatingLocation()
+            self.locationManager.startUpdatingLocation()
+            
             let defaults = NSUserDefaults.standardUserDefaults()
-            if defaults.objectForKey("file") == nil {
-                defaults.setObject(didSelectFile, forKey:"file");
-                defaults.synchronize();
-            }
+            defaults.setObject(didSelectFile, forKey:"file");
+            defaults.synchronize();
         }
     }
     
@@ -476,6 +586,15 @@ extension MapViewController : FileListTableViewControllerDelegate {
         self.dismissViewControllerAnimated(true) { () -> Void in
         }
     }
+}
+
+
+extension MapViewController : AVSpeechSynthesizerDelegate {
+    
+    func speechSynthesizer(synthesizer: AVSpeechSynthesizer, didFinishSpeechUtterance utterance: AVSpeechUtterance) {
+        try! self.session.setActive(false)
+    }
+    
 }
 
 
