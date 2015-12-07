@@ -25,6 +25,8 @@ public enum ZoomType: String {
 
 class MapViewController: UIViewController {
     
+    @IBOutlet weak var arrowImageView: UIImageView!
+    
     let session = AVAudioSession.sharedInstance()
     
     let synth = AVSpeechSynthesizer()
@@ -61,6 +63,30 @@ class MapViewController: UIViewController {
     
     var found = false
     
+    var settingsShown = false;
+    
+    @IBOutlet weak var settingsHeightConstraint: NSLayoutConstraint!
+    @IBAction func distanceButtonTapped(sender: AnyObject) {
+        
+        
+        if  self.settingsShown == true{
+            self.settingsHeightConstraint.constant = 40
+        }
+        else {
+            self.settingsHeightConstraint.constant = 256
+        }
+        
+        self.settingsShown = !self.settingsShown
+        
+        UIView.animateWithDuration(0.3) {
+            self.arrowImageView.transform = CGAffineTransformMakeRotation(self.settingsShown == true ? 0:3.142)
+            
+            
+            self.view.layoutIfNeeded()
+        }
+        
+        
+    }
     @IBOutlet weak var distanceButton: UIButton!
     var locationArrayArray:Array<Array<CLLocation>>?
     
@@ -197,6 +223,8 @@ class MapViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+          self.settingsHeightConstraint.constant = 40
         
         self.setupAudio()
         
@@ -485,6 +513,13 @@ extension MapViewController : CLLocationManagerDelegate {
     
     func locationManager(manager: CLLocationManager, didUpdateToLocation newLocation: CLLocation, fromLocation oldLocation: CLLocation) {
         
+        let defaults = NSUserDefaults.standardUserDefaults()
+        
+        let offTrackAudioOn = defaults.boolForKey("OffTrackAudioOn")
+        
+        
+        let offTrackDistance = defaults.valueForKey("OffTrackDistance")?.doubleValue
+        
         self.currentLocation = newLocation
         
         if self.repeater == nil {
@@ -506,18 +541,25 @@ extension MapViewController : CLLocationManagerDelegate {
                         
                     }
                     
-                    if minimumDistance > 20 {
+                    
+                    
+                    
+                    if minimumDistance > offTrackDistance {
                         self.found = false;
                         
-                        let myUtterance = AVSpeechUtterance(string: "\(Int(minimumDistance)) metres Off")
+                        let myUtterance = AVSpeechUtterance(string: "\(Int(minimumDistance)) metres Off Track")
                         
-                        self.synth.speakUtterance(myUtterance)
+                        if (offTrackAudioOn) {
+                            self.synth.speakUtterance(myUtterance)
+                        }
                     }
                         
                     else {
                         if self.found == false {
                             let myUtterance = AVSpeechUtterance(string: "Onn Track")
-                            self.synth.speakUtterance(myUtterance)
+                            if (offTrackAudioOn) {
+                                self.synth.speakUtterance(myUtterance)
+                            }
                             self.found = true
                             
                         }

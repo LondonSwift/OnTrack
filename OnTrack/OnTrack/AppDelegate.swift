@@ -23,6 +23,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             defaults.setObject("Peak200.gpx", forKey:"file");
             defaults.synchronize();
         }
+      
+        if defaults.objectForKey("OffTrackAudioOn") == nil {
+            defaults.setBool(false, forKey:"OffTrackAudioOn");
+            defaults.synchronize();
+        }
+
+        if defaults.objectForKey("OffTrackDistance") == nil {
+            defaults.setValue(10.0, forKey:"OffTrackDistance");
+            defaults.synchronize();
+        }
         
         if defaults.objectForKey("hasCopiedFiles") == nil {
             defaults.setBool(true, forKey:"hasCopiedFiles");
