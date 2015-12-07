@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "Circle-Maze.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "Circle-Maze.png",
       "scale" : "2x"
     },
     {
