@@ -65,28 +65,57 @@ class MapViewController: UIViewController {
     
     var settingsShown = false;
     
+    @IBOutlet weak var tappableBackground: UIView!
+    @IBAction func swipeDownOnSettings(sender: AnyObject) {
+        self.hideSettings()
+    }
+    @IBAction func backgroundTapped(sender: AnyObject) {
+        self.hideSettings()
+    }
     @IBOutlet weak var settingsHeightConstraint: NSLayoutConstraint!
     @IBAction func distanceButtonTapped(sender: AnyObject) {
         
-        
-        if  self.settingsShown == true{
-            self.settingsHeightConstraint.constant = 40
+        if self.settingsShown == true {
+            self.hideSettings()
         }
         else {
-            self.settingsHeightConstraint.constant = 256
+            self.showSettings()
         }
         
-        self.settingsShown = !self.settingsShown
+      
+    }
+    
+    func showSettings() {
+        
+        self.settingsHeightConstraint.constant = 256
+        
+        self.tappableBackground.userInteractionEnabled = false
+        
         
         UIView.animateWithDuration(0.3) {
-            self.arrowImageView.transform = CGAffineTransformMakeRotation(self.settingsShown == true ? 0:3.142)
-            
-            
+            self.arrowImageView.transform = CGAffineTransformMakeRotation(3.142)
             self.view.layoutIfNeeded()
+            self.tappableBackground.alpha = 1.0
         }
         
+          self.settingsShown = true
         
     }
+    
+    func hideSettings() {
+        self.settingsHeightConstraint.constant = 40
+    //    self.tappableBackground.userInteractionEnabled = false
+        
+        UIView.animateWithDuration(0.3) {
+            self.arrowImageView.transform = CGAffineTransformMakeRotation(0)
+            self.view.layoutIfNeeded()
+            self.tappableBackground.alpha = 0.0
+            
+        }
+        
+          self.settingsShown = false
+    }
+    
     @IBOutlet weak var distanceButton: UIButton!
     var locationArrayArray:Array<Array<CLLocation>>?
     
@@ -224,7 +253,7 @@ class MapViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-          self.settingsHeightConstraint.constant = 40
+        self.settingsHeightConstraint.constant = 40
         
         self.setupAudio()
         
@@ -244,6 +273,8 @@ class MapViewController: UIViewController {
         
         self.locationManager.startUpdatingLocation()
         
+        
+        self.tappableBackground.alpha = 0.0
         
         
     }
