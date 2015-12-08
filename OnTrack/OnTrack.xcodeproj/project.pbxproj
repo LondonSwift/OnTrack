@@ -15,6 +15,7 @@
 		D63F8CB21B95F63700D2F8F7 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63F8CB11B95F63700D2F8F7 /* MapViewController.swift */; };
 		D63F8CB41B95F79200D2F8F7 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D63F8CB31B95F79200D2F8F7 /* MapKit.framework */; };
 		D651A60D1C14718200FCFB40 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D651A60C1C14718200FCFB40 /* Images.xcassets */; };
+		D66107141C1772AB007755B2 /* SemiEllipseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66107131C1772AB007755B2 /* SemiEllipseView.swift */; };
 		D6A242091B985A90001FA00D /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6A242081B985A90001FA00D /* AudioToolbox.framework */; };
 		D6C205451C166EE100399065 /* UIView+ViewPinnedInSuperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C205441C166EE100399065 /* UIView+ViewPinnedInSuperView.swift */; };
 		D6CC617D1BBADB2A00D79B96 /* NSURL+applicationDocumentsDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6CC617C1BBADB2A00D79B96 /* NSURL+applicationDocumentsDirectory.swift */; };
@@ -39,6 +40,7 @@
 		D63F8CB11B95F63700D2F8F7 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		D63F8CB31B95F79200D2F8F7 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		D651A60C1C14718200FCFB40 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		D66107131C1772AB007755B2 /* SemiEllipseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SemiEllipseView.swift; sourceTree = "<group>"; };
 		D6A242081B985A90001FA00D /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		D6AB9D8C1B9715110087BC30 /* Bridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Bridge.h; sourceTree = "<group>"; };
 		D6C205441C166EE100399065 /* UIView+ViewPinnedInSuperView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+ViewPinnedInSuperView.swift"; sourceTree = "<group>"; };
@@ -117,6 +119,7 @@
 				D63F8C8F1B95D85600D2F8F7 /* Supporting Files */,
 				D6AB9D8C1B9715110087BC30 /* Bridge.h */,
 				D6CC61A01BBBCCBC00D79B96 /* Launch Screen.storyboard */,
+				D66107131C1772AB007755B2 /* SemiEllipseView.swift */,
 			);
 			path = OnTrack;
 			sourceTree = "<group>";
@@ -283,6 +286,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D66107141C1772AB007755B2 /* SemiEllipseView.swift in Sources */,
 				D639507C1BB7B871009BE0D5 /* FileListTableViewController.swift in Sources */,
 				D63F8CB21B95F63700D2F8F7 /* MapViewController.swift in Sources */,
 				D63F8C921B95D85600D2F8F7 /* AppDelegate.swift in Sources */,
