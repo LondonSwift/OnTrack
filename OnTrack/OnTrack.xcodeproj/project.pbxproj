@@ -16,6 +16,7 @@
 		D63F8CB41B95F79200D2F8F7 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D63F8CB31B95F79200D2F8F7 /* MapKit.framework */; };
 		D651A60D1C14718200FCFB40 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D651A60C1C14718200FCFB40 /* Images.xcassets */; };
 		D6A242091B985A90001FA00D /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6A242081B985A90001FA00D /* AudioToolbox.framework */; };
+		D6C205451C166EE100399065 /* UIView+ViewPinnedInSuperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C205441C166EE100399065 /* UIView+ViewPinnedInSuperView.swift */; };
 		D6CC617D1BBADB2A00D79B96 /* NSURL+applicationDocumentsDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6CC617C1BBADB2A00D79B96 /* NSURL+applicationDocumentsDirectory.swift */; };
 		D6CC61A11BBBCCBC00D79B96 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6CC61A01BBBCCBC00D79B96 /* Launch Screen.storyboard */; };
 		D6CC61AB1BBBF89D00D79B96 /* BrenigLoop.gpx in Resources */ = {isa = PBXBuildFile; fileRef = D6CC61A41BBBF89D00D79B96 /* BrenigLoop.gpx */; };
@@ -40,6 +41,7 @@
 		D651A60C1C14718200FCFB40 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		D6A242081B985A90001FA00D /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		D6AB9D8C1B9715110087BC30 /* Bridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Bridge.h; sourceTree = "<group>"; };
+		D6C205441C166EE100399065 /* UIView+ViewPinnedInSuperView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+ViewPinnedInSuperView.swift"; sourceTree = "<group>"; };
 		D6CC617C1BBADB2A00D79B96 /* NSURL+applicationDocumentsDirectory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSURL+applicationDocumentsDirectory.swift"; sourceTree = "<group>"; };
 		D6CC61A01BBBCCBC00D79B96 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		D6CC61A41BBBF89D00D79B96 /* BrenigLoop.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = BrenigLoop.gpx; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 			children = (
 				D6CC61A31BBBF89400D79B96 /* GPX */,
 				D6CC617C1BBADB2A00D79B96 /* NSURL+applicationDocumentsDirectory.swift */,
+				D6C205441C166EE100399065 /* UIView+ViewPinnedInSuperView.swift */,
 				D639507F1BB7BFD5009BE0D5 /* FileListTableViewCell.swift */,
 				D639507B1BB7B871009BE0D5 /* FileListTableViewController.swift */,
 				D651A60C1C14718200FCFB40 /* Images.xcassets */,
@@ -283,6 +286,7 @@
 				D639507C1BB7B871009BE0D5 /* FileListTableViewController.swift in Sources */,
 				D63F8CB21B95F63700D2F8F7 /* MapViewController.swift in Sources */,
 				D63F8C921B95D85600D2F8F7 /* AppDelegate.swift in Sources */,
+				D6C205451C166EE100399065 /* UIView+ViewPinnedInSuperView.swift in Sources */,
 				D63950801BB7BFD5009BE0D5 /* FileListTableViewCell.swift in Sources */,
 				D6CC617D1BBADB2A00D79B96 /* NSURL+applicationDocumentsDirectory.swift in Sources */,
 			);

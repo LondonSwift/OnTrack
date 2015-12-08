@@ -25,12 +25,104 @@ public enum ZoomType: String {
 
 class MapViewController: UIViewController {
     
+    @IBAction func didChnageSlider(sender: UISlider) {
+            let defaults = NSUserDefaults.standardUserDefaults()
+            
+        defaults.setDouble(Double(slider.value), forKey:"OffTrackDistance")
+        
+        defaults.synchronize()
+        
+        
+        offTrackDistanceLabel.text = "Off Track Distance = \(slider.value)"
+    }
+    
+    @IBOutlet weak var slider: UISlider!
+    @IBAction func didPressAudableSwitch(sender: UISwitch) {
+        
+        let defaults = NSUserDefaults.standardUserDefaults()
+        
+        defaults.setBool(sender.on, forKey: "OffTrackAudioOn")
+      
+        defaults.synchronize()
+    }
+    @IBOutlet weak var audableSwitch: UISwitch!
     @IBOutlet weak var arrowImageView: UIImageView!
     
     let session = AVAudioSession.sharedInstance()
     
     let synth = AVSpeechSynthesizer()
     
+    var fileListShown = false
+    
+    var fileListViewController: FileListTableViewController?
+    
+    @IBOutlet weak var fileListContainerHeightConstraint: NSLayoutConstraint!
+    @IBAction func didPressTitleBar(sender: AnyObject) {
+        
+        if self.fileListShown == false {
+        
+        let launchStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        if let launchViewController = launchStoryboard.instantiateViewControllerWithIdentifier("FileListIdentifier") as? FileListTableViewController {
+            
+            
+            self.addChildViewController(launchViewController)
+         
+            
+            self.fileListContainer.addSubview(launchViewController.view)
+            
+            launchViewController.view.translatesAutoresizingMaskIntoConstraints = false
+            self.view.pinView(launchViewController.view, inSuperView: self.fileListContainer, height:256)
+            
+            
+            // call before adding child view controller's view as subview
+            launchViewController.didMoveToParentViewController(self)
+                  self.view.layoutIfNeeded()
+            
+            self.fileListContainerHeightConstraint.constant = 256
+            UIView.animateWithDuration(2) {
+        //        self.arrowImageView.transform = CGAffineTransformMakeRotation(3.142)
+                self.view.layoutIfNeeded()
+            }
+            
+            self.fileListShown = true
+            
+            self.fileListViewController = launchViewController
+            
+        }
+        }
+        else {
+            
+            if let launchViewController = self.fileListViewController {
+            
+                
+                self.fileListContainerHeightConstraint.constant = 0
+                
+                
+                UIView.animateWithDuration(0.3, animations: { () -> Void in
+                    
+                    self.view.layoutIfNeeded()
+                    
+                    }, completion: { (com) -> Void in
+                        launchViewController.willMoveToParentViewController(nil)
+                        
+                        launchViewController.view.removeFromSuperview()
+                        
+                        launchViewController.removeFromParentViewController()
+                })
+                
+                self.fileListShown = false
+
+                
+                
+                
+
+        }
+        }
+    
+        
+    }
+    @IBOutlet weak var fileListContainer: UIView!
+    @IBOutlet weak var offTrackDistanceLabel: UILabel!
     var repeater: LSRepeater?
     
     var currentLocation: CLLocation?
@@ -82,38 +174,29 @@ class MapViewController: UIViewController {
             self.showSettings()
         }
         
-      
+        
     }
     
     func showSettings() {
         
         self.settingsHeightConstraint.constant = 256
-        
-        self.tappableBackground.userInteractionEnabled = false
-        
-        
         UIView.animateWithDuration(0.3) {
             self.arrowImageView.transform = CGAffineTransformMakeRotation(3.142)
             self.view.layoutIfNeeded()
-            self.tappableBackground.alpha = 1.0
         }
         
-          self.settingsShown = true
+        self.settingsShown = true
         
     }
     
     func hideSettings() {
         self.settingsHeightConstraint.constant = 40
-    //    self.tappableBackground.userInteractionEnabled = false
-        
         UIView.animateWithDuration(0.3) {
             self.arrowImageView.transform = CGAffineTransformMakeRotation(0)
             self.view.layoutIfNeeded()
             self.tappableBackground.alpha = 0.0
-            
         }
-        
-          self.settingsShown = false
+        self.settingsShown = false
     }
     
     @IBOutlet weak var distanceButton: UIButton!
@@ -186,6 +269,8 @@ class MapViewController: UIViewController {
     
     @IBAction func didPressMapTypeButton(sender: AnyObject) {
         
+        self.hideSettings()
+        
         self.mapType = [MapType.AppleSatellite ,MapType.AppleHybrid, MapType.AppleStandard][[MapType.AppleStandard, MapType.AppleSatellite, MapType.AppleHybrid].indexOf(self.mapType)!]
         
         self.updateMapTypeButton()
@@ -194,6 +279,8 @@ class MapViewController: UIViewController {
     
     @IBAction func didPressZoomTypeButton(sender: AnyObject) {
         
+        self.hideSettings()
+        
         if self.zoomType == .All { self.zoomType = .You }
         else { self.zoomType = .All }
         
@@ -201,14 +288,6 @@ class MapViewController: UIViewController {
         
         self.updateZoomType()
         
-    }
-    
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        
-        let nc = segue.destinationViewController as! UINavigationController
-        let vc = nc.viewControllers[0] as! FileListTableViewController
-        
-        vc.delegate = self
     }
     
     func updateMapTypeButton() {
@@ -253,6 +332,18 @@ class MapViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.fileListContainerHeightConstraint.constant = 0
+        
+        self.audableSwitch.onTintColor = UIColor(colorLiteralRed: 0.6, green: 0.8509, blue: 0.301, alpha: 1.0)
+        
+        self.slider.minimumValue = 5
+        self.slider.maximumValue = 200
+        
+        let defaults = NSUserDefaults.standardUserDefaults()
+        
+        self.audableSwitch.on = defaults.boolForKey("OffTrackAudioOn")
+        self.slider.value = Float((defaults.valueForKey("OffTrackDistance")?.doubleValue)!)
+        
         self.settingsHeightConstraint.constant = 40
         
         self.setupAudio()
@@ -265,7 +356,6 @@ class MapViewController: UIViewController {
         self.updateMapTypeButton()
         self.setupLocationManager()
         
-        let defaults = NSUserDefaults.standardUserDefaults()
         
         if let file = defaults.objectForKey("file") as? String {
             self.loadRoute(file)

@@ -30,7 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
 
         if defaults.objectForKey("OffTrackDistance") == nil {
-            defaults.setValue(10.0, forKey:"OffTrackDistance");
+            defaults.setDouble(10.0, forKey:"OffTrackDistance");
             defaults.synchronize();
         }
         
