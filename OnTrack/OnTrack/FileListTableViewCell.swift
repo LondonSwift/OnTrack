@@ -10,5 +10,7 @@ import UIKit
 
 class FileListTableViewCell: UITableViewCell {
 
+
+    @IBOutlet weak var buyButton: UIButton!
     @IBOutlet weak var fileNameLabel: UILabel!
 }

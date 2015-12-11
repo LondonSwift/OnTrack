@@ -12,5 +12,6 @@
 #import <Foundation/Foundation.h>
 
 #import "GPX.h"
+#import "CALayer+Animations.h"
 
 #endif

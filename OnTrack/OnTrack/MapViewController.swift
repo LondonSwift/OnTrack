@@ -25,6 +25,10 @@ public enum ZoomType: String {
 
 class MapViewController: UIViewController {
     
+    let weather = Weather()
+    let time = Time()
+    let rss = RSS()
+    
     @IBOutlet weak var tappableViewTopSpaceLayoutConstraint: NSLayoutConstraint!
     @IBOutlet weak var distanceOffTrackLabel: UILabel!
     @IBOutlet weak var tickerLabel: UILabel!
@@ -67,10 +71,22 @@ class MapViewController: UIViewController {
     var fileListViewController: FileListTableViewController?
     
     func showFileList() {
+        
+
+        self.tickerLabel.layer.animateWithType(kCATransitionFromLeft, duration: 1.0)
+        
+        self.tickerLabel.textAlignment = .Left
+        
+      //  self.tickerLabel
+        
         let launchStoryboard = UIStoryboard(name: "Main", bundle: nil)
         if let launchViewController = launchStoryboard.instantiateViewControllerWithIdentifier("FileListIdentifier") as? FileListTableViewController {
             
+            let defaults = NSUserDefaults.standardUserDefaults()
             
+              if let file = defaults.objectForKey("file") as? String {
+            launchViewController.file = file
+            }
             self.hideSettings()
             
             self.addChildViewController(launchViewController)
@@ -79,34 +95,40 @@ class MapViewController: UIViewController {
             self.fileListContainer.addSubview(launchViewController.view)
             
             launchViewController.view.translatesAutoresizingMaskIntoConstraints = false
-            self.view.pinView(launchViewController.view, inSuperView: self.fileListContainer, height:256)
+            self.view.pinView(launchViewController.view, inSuperView: self.fileListContainer, height:176)
             
             
             // call before adding child view controller's view as subview
             launchViewController.didMoveToParentViewController(self)
             self.view.layoutIfNeeded()
             
-            self.fileListContainerHeightConstraint.constant = 256
+            self.fileListContainerHeightConstraint.constant = 176
             UIView.animateWithDuration(0.3) {
-                        self.fileListArrowImageView.transform = CGAffineTransformMakeRotation(0)
+                self.fileListArrowImageView.transform = CGAffineTransformMakeRotation(0)
                 self.view.layoutIfNeeded()
             }
             
             launchViewController.delegate = self
             
             self.fileListShown = true
-        
+            
             
             
             self.fileListViewController = launchViewController
             
-        
+            
             
         }
         
     }
     
     func hideFileList() {
+        
+        self.tickerLabel.layer.animateWithType(kCATransitionFromLeft, duration: 1.0)
+        
+            self.tickerLabel.textAlignment = .Center
+        
+        
         if let launchViewController = self.fileListViewController {
             
             
@@ -253,8 +275,14 @@ class MapViewController: UIViewController {
         
         self.distanceButton.setTitle("", forState: .Normal)
         
-        self.tickerLabel.text = filename
         
+        if let url = NSURL(string: filename) {
+        
+        self.tickerLabel.text = url.URLByDeletingPathExtension?.lastPathComponent
+        }
+        else {
+            self.tickerLabel.text = filename
+        }
         self.polylineArray = nil
         self.rendererArray = nil
         self.currentLocationToNearestPolyline = nil
@@ -364,12 +392,61 @@ class MapViewController: UIViewController {
         //  try! self.session.setActive(true)
         
     }
+    func startRSS() {
+        self.repeater = LSRepeater.repeater(60*5, execute: { [unowned self] () -> Void in
+            
+            let defaults = NSUserDefaults.standardUserDefaults()
+            
+            if defaults.boolForKey("RSSAudioOn") {
+                self.rss.sayRSS("http://www.npr.org/rss/rss.php?id=2", synth: self.synth)
+            }
+            })
+    }
+    
+    func startWeather() {
+        self.repeater = LSRepeater.repeater(60*40, execute: { [unowned self] () -> Void in
+            
+            if let currentLocation = self.currentLocation {
+                
+                let defaults = NSUserDefaults.standardUserDefaults()
+                
+                
+                if defaults.boolForKey("WeatherAudioOn") {
+                    self.weather.sayWeather(currentLocation, synth: self.synth)
+                }
+                
+                
+            }
+            })
+    }
+    
+    
+    func startTime() {
+        self.repeater = LSRepeater.repeater(60*15, execute: { [unowned self] () -> Void in
+            
+            
+            let defaults = NSUserDefaults.standardUserDefaults()
+            
+            
+            if defaults.boolForKey("TimeAudioOn") {
+                self.time.sayTime(self.synth)
+            }
+            
+            
+            })
+    }
+    
     
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+    //    self.startWeather()
+    //    self.startTime()
+     //   self.startRSS()
+     
         self.mapView.layoutMargins = UIEdgeInsetsMake(20, 0, 20, 0)
         
         
@@ -413,7 +490,7 @@ class MapViewController: UIViewController {
         
         self.tappableBackground.alpha = 0.0
         
-          self.fileListArrowImageView.transform = CGAffineTransformMakeRotation(3.142)
+        self.fileListArrowImageView.transform = CGAffineTransformMakeRotation(3.142)
         
         
     }
@@ -551,6 +628,7 @@ extension MapViewController : MKMapViewDelegate {
         if overlay.isKindOfClass(MKTileOverlay) {
             return MKTileOverlayRenderer(overlay: overlay)
         }
+        
         
         if let polylineArray = self.polylineArray {
             
@@ -706,13 +784,25 @@ extension MapViewController : CLLocationManagerDelegate {
                     }
                     
                     let defaults = NSUserDefaults.standardUserDefaults()
+                    
                     let offTrackAudioOn = defaults.boolForKey("OffTrackAudioOn")
                     let offTrackDistance = defaults.valueForKey("OffTrackDistance")?.doubleValue
                     
                     if minimumDistance > offTrackDistance {
                         self.found = false;
                         
-                        let myUtterance = AVSpeechUtterance(string: "\(Int(minimumDistance)) metres Off Track")
+                        
+                        let text:String
+                        
+                        if minimumDistance < 1000 {
+                            text = String(format:"%.0f metres", minimumDistance)
+                        }
+                        else {
+                            text = String(format:"%.1f kilometers", minimumDistance/1000)
+                        }
+                        
+                        
+                        let myUtterance = AVSpeechUtterance(string: "warning \(text) Off Track")
                         
                         if (offTrackAudioOn) {
                             self.synth.speakUtterance(myUtterance)
@@ -734,7 +824,7 @@ extension MapViewController : CLLocationManagerDelegate {
                 
                 
                 if minimumDistance < 1000 {
-                self.distanceOffTrackLabel.text = String(format:"%.0fm", minimumDistance)
+                    self.distanceOffTrackLabel.text = String(format:"%.0fm", minimumDistance)
                 }
                 else {
                     self.distanceOffTrackLabel.text = String(format:"%.1fkm", minimumDistance/1000)

@@ -9,37 +9,58 @@
         <scene sceneID="K6i-dy-1ys">
             <objects>
                 <tableViewController storyboardIdentifier="FileListIdentifier" id="jur-NY-zg2" customClass="FileListTableViewController" customModule="OnTrack" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="hGX-lk-Ysh">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="hGX-lk-Ysh">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="300"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="sectionIndexBackgroundColor" red="0.40000000600000002" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FileListTableViewCellIdentifier" id="9DG-H3-PjV" customClass="FileListTableViewCell" customModule="OnTrack" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="320" height="44"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FileListTableViewCellIdentifier" rowHeight="30" id="9DG-H3-PjV" customClass="FileListTableViewCell" customModule="OnTrack" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="320" height="30"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9DG-H3-PjV" id="k1k-6N-ETN">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="30"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bridleway.gpx" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b1j-bU-P5L">
-                                            <rect key="frame" x="8" y="8" width="304" height="27.5"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bridleway" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="24" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b1j-bU-P5L">
+                                            <rect key="frame" x="49" y="0.0" width="171" height="30"/>
                                             <animations/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="19"/>
+                                            <color key="textColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Iem-fY-6EX">
+                                            <rect key="frame" x="250" y="4" width="22" height="22"/>
+                                            <animations/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="30" id="eUS-IW-5ao"/>
+                                            </constraints>
+                                            <color key="tintColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </button>
                                     </subviews>
                                     <animations/>
                                     <constraints>
-                                        <constraint firstItem="b1j-bU-P5L" firstAttribute="top" secondItem="k1k-6N-ETN" secondAttribute="top" constant="8" id="lNZ-Y0-A0q"/>
-                                        <constraint firstItem="b1j-bU-P5L" firstAttribute="leading" secondItem="k1k-6N-ETN" secondAttribute="leading" constant="8" id="tOR-Ro-HGK"/>
-                                        <constraint firstAttribute="bottom" secondItem="b1j-bU-P5L" secondAttribute="bottom" constant="8" id="u6I-Sm-7Hr"/>
-                                        <constraint firstAttribute="trailing" secondItem="b1j-bU-P5L" secondAttribute="trailing" constant="8" id="ylr-Uv-6ch"/>
+                                        <constraint firstItem="b1j-bU-P5L" firstAttribute="leading" secondItem="k1k-6N-ETN" secondAttribute="leadingMargin" constant="45" id="QPD-aB-Kzh"/>
+                                        <constraint firstItem="b1j-bU-P5L" firstAttribute="leading" secondItem="k1k-6N-ETN" secondAttribute="leading" constant="49" id="fax-j4-2ro"/>
+                                        <constraint firstItem="b1j-bU-P5L" firstAttribute="top" secondItem="k1k-6N-ETN" secondAttribute="top" id="lNZ-Y0-A0q"/>
+                                        <constraint firstItem="Iem-fY-6EX" firstAttribute="centerY" secondItem="k1k-6N-ETN" secondAttribute="centerY" id="qP6-yb-3gq"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="Iem-fY-6EX" secondAttribute="trailing" constant="28" id="rty-lZ-zXb"/>
+                                        <constraint firstItem="b1j-bU-P5L" firstAttribute="leading" secondItem="k1k-6N-ETN" secondAttribute="leading" constant="45" id="tOR-Ro-HGK"/>
+                                        <constraint firstAttribute="bottom" secondItem="b1j-bU-P5L" secondAttribute="bottom" id="u6I-Sm-7Hr"/>
+                                        <constraint firstAttribute="trailing" secondItem="b1j-bU-P5L" secondAttribute="trailing" constant="100" id="ylr-Uv-6ch"/>
                                     </constraints>
+                                    <variation key="default">
+                                        <mask key="constraints">
+                                            <exclude reference="QPD-aB-Kzh"/>
+                                            <exclude reference="tOR-Ro-HGK"/>
+                                        </mask>
+                                    </variation>
                                 </tableViewCellContentView>
                                 <animations/>
+                                <color key="backgroundColor" red="0.70379908739999997" green="0.84917726770000002" blue="0.30314919800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
+                                    <outlet property="buyButton" destination="Iem-fY-6EX" id="nY0-CO-hmz"/>
                                     <outlet property="fileNameLabel" destination="b1j-bU-P5L" id="wjq-mW-9Au"/>
                                 </connections>
                             </tableViewCell>
@@ -49,6 +70,7 @@
                             <outlet property="delegate" destination="jur-NY-zg2" id="5mN-1z-dI5"/>
                         </connections>
                     </tableView>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" title="Select Route" id="Oai-7G-4uc">
                         <barButtonItem key="rightBarButtonItem" title="Cancel" id="EFR-F7-yUW">
                             <connections>
@@ -57,11 +79,11 @@
                         </barButtonItem>
                     </navigationItem>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="320" height="100"/>
+                    <size key="freeformSize" width="320" height="300"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="A6q-1t-aUX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2245" y="611"/>
+            <point key="canvasLocation" x="2263" y="409"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="nGv-81-9Yr">
@@ -151,7 +173,7 @@
                                     <constraint firstAttribute="height" constant="34" id="czK-3V-4De"/>
                                     <constraint firstAttribute="width" constant="266" id="r4S-kG-8bo"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="26"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="19"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                                 <userDefinedRuntimeAttributes>
@@ -250,7 +272,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FHl-KE-Vhq">
                                 <rect key="frame" x="60" y="224" width="200" height="256"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6IR-N0-EC6">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6IR-N0-EC6">
                                         <rect key="frame" x="0.0" y="0.0" width="200" height="60"/>
                                         <animations/>
                                         <color key="backgroundColor" red="0.59999999999999998" green="0.80000000000000004" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

@@ -25,7 +25,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
       
         if defaults.objectForKey("OffTrackAudioOn") == nil {
-            defaults.setBool(false, forKey:"OffTrackAudioOn");
+            defaults.setBool(true, forKey:"OffTrackAudioOn");
+            defaults.synchronize();
+        }
+        
+        if defaults.objectForKey("WeatherAudioOn") == nil {
+            defaults.setBool(true, forKey:"WeatherAudioOn");
+            defaults.synchronize();
+        }
+        
+        if defaults.objectForKey("RSSAudioOn") == nil {
+            defaults.setBool(true, forKey:"RSSAudioOn");
+            defaults.synchronize();
+        }
+        
+        
+        if defaults.objectForKey("TimeAudioOn") == nil {
+            defaults.setBool(true, forKey:"TimeAudioOn");
             defaults.synchronize();
         }
 

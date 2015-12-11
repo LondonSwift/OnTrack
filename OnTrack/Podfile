@@ -8,3 +8,4 @@ pod "LSRepeater"
 
 pod 'Fabric'
 pod 'Crashlytics'
+pod 'MarqueeLabel'

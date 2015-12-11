@@ -19,6 +19,8 @@ class FileListTableViewController: UITableViewController {
     
     let fileManager = NSFileManager.defaultManager()
     
+    var file:String?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -31,7 +33,14 @@ class FileListTableViewController: UITableViewController {
     lazy var fileList: [String] = {
         
         do {
-            var list = try self.fileManager.contentsOfDirectoryAtPath(NSURL.applicationDocumentsDirectory().path!)
+            var list = try self.fileManager.contentsOfDirectoryAtPath(NSURL.applicationDocumentsDirectory().path!) as [String]
+            
+            
+            if let file = self.file {
+                if let index = list.indexOf(file) {
+                    list.removeAtIndex(index)
+                }
+            }
             
             print(list)
             if let index = list.indexOf("Inbox") {
@@ -48,18 +57,40 @@ class FileListTableViewController: UITableViewController {
             return [String]()
         }
         
-        }()
+    }()
 }
 
 extension FileListTableViewController /* : UITableViewDataSource*/ {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("FileListTableViewCellIdentifier", forIndexPath: indexPath) as! FileListTableViewCell
-        cell.fileNameLabel.text = self.fileManager.displayNameAtPath(self.fileList[indexPath.row])
+        
+        
+        let filename = self.fileManager.displayNameAtPath(self.fileList[indexPath.row])
+        
+        let path:String?
+        
+        if let url = NSURL(string: filename) {
+            
+            path = url.URLByDeletingPathExtension?.lastPathComponent
+        }
+        else {
+            path = filename
+        }
+        
+        
+        cell.buyButton.hidden = indexPath.row != 2 ? true : false
+        
+        cell.fileNameLabel.text = path
+        
         return cell
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.fileList.count
+    }
+    
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 44
     }
 }
 

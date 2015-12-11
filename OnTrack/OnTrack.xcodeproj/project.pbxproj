@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		1F68BC3D15DA1BAC5190EF56 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AD675B2C451C2D0EEEC8128 /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		D60429061C17A98C002436C5 /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = D60429051C17A98C002436C5 /* Weather.swift */; };
+		D60429081C17B24D002436C5 /* Time.swift in Sources */ = {isa = PBXBuildFile; fileRef = D60429071C17B24D002436C5 /* Time.swift */; };
+		D604290A1C182B0E002436C5 /* RSS.swift in Sources */ = {isa = PBXBuildFile; fileRef = D60429091C182B0E002436C5 /* RSS.swift */; };
+		D604290C1C18304B002436C5 /* TBXML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D604290B1C18304B002436C5 /* TBXML.framework */; };
 		D639507C1BB7B871009BE0D5 /* FileListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D639507B1BB7B871009BE0D5 /* FileListTableViewController.swift */; };
 		D63950801BB7BFD5009BE0D5 /* FileListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D639507F1BB7BFD5009BE0D5 /* FileListTableViewCell.swift */; };
 		D63F8C921B95D85600D2F8F7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63F8C911B95D85600D2F8F7 /* AppDelegate.swift */; };
@@ -16,6 +20,7 @@
 		D63F8CB41B95F79200D2F8F7 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D63F8CB31B95F79200D2F8F7 /* MapKit.framework */; };
 		D651A60D1C14718200FCFB40 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D651A60C1C14718200FCFB40 /* Images.xcassets */; };
 		D66107141C1772AB007755B2 /* SemiEllipseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66107131C1772AB007755B2 /* SemiEllipseView.swift */; };
+		D671B5701C1A3D0B005F41F9 /* CALayer+Animations.m in Sources */ = {isa = PBXBuildFile; fileRef = D671B56F1C1A3D0B005F41F9 /* CALayer+Animations.m */; };
 		D6A242091B985A90001FA00D /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6A242081B985A90001FA00D /* AudioToolbox.framework */; };
 		D6C205451C166EE100399065 /* UIView+ViewPinnedInSuperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C205441C166EE100399065 /* UIView+ViewPinnedInSuperView.swift */; };
 		D6CC617D1BBADB2A00D79B96 /* NSURL+applicationDocumentsDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6CC617C1BBADB2A00D79B96 /* NSURL+applicationDocumentsDirectory.swift */; };
@@ -31,6 +36,10 @@
 		862D870810259C1C7ADBF278 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		8AD675B2C451C2D0EEEC8128 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D12F0064A1894A1FC07BBF36 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		D60429051C17A98C002436C5 /* Weather.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
+		D60429071C17B24D002436C5 /* Time.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Time.swift; sourceTree = "<group>"; };
+		D60429091C182B0E002436C5 /* RSS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSS.swift; sourceTree = "<group>"; };
+		D604290B1C18304B002436C5 /* TBXML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TBXML.framework; path = "Pods/../build/Debug-iphoneos/TBXML.framework"; sourceTree = "<group>"; };
 		D639507B1BB7B871009BE0D5 /* FileListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileListTableViewController.swift; sourceTree = "<group>"; };
 		D639507F1BB7BFD5009BE0D5 /* FileListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileListTableViewCell.swift; sourceTree = "<group>"; };
 		D63F8C8C1B95D85600D2F8F7 /* OnTrack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OnTrack.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -41,6 +50,8 @@
 		D63F8CB31B95F79200D2F8F7 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		D651A60C1C14718200FCFB40 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		D66107131C1772AB007755B2 /* SemiEllipseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SemiEllipseView.swift; sourceTree = "<group>"; };
+		D671B56E1C1A3D0B005F41F9 /* CALayer+Animations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CALayer+Animations.h"; sourceTree = "<group>"; };
+		D671B56F1C1A3D0B005F41F9 /* CALayer+Animations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CALayer+Animations.m"; sourceTree = "<group>"; };
 		D6A242081B985A90001FA00D /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		D6AB9D8C1B9715110087BC30 /* Bridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Bridge.h; sourceTree = "<group>"; };
 		D6C205441C166EE100399065 /* UIView+ViewPinnedInSuperView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+ViewPinnedInSuperView.swift"; sourceTree = "<group>"; };
@@ -58,6 +69,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D604290C1C18304B002436C5 /* TBXML.framework in Frameworks */,
 				D6A242091B985A90001FA00D /* AudioToolbox.framework in Frameworks */,
 				D63F8CB41B95F79200D2F8F7 /* MapKit.framework in Frameworks */,
 				1F68BC3D15DA1BAC5190EF56 /* Pods.framework in Frameworks */,
@@ -79,6 +91,7 @@
 		C92946D7DD4C75B6072BA718 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D604290B1C18304B002436C5 /* TBXML.framework */,
 				D6A242081B985A90001FA00D /* AudioToolbox.framework */,
 				8AD675B2C451C2D0EEEC8128 /* Pods.framework */,
 			);
@@ -115,11 +128,16 @@
 				D651A60C1C14718200FCFB40 /* Images.xcassets */,
 				D63F8C911B95D85600D2F8F7 /* AppDelegate.swift */,
 				D63F8C951B95D85600D2F8F7 /* Main.storyboard */,
+				D671B56E1C1A3D0B005F41F9 /* CALayer+Animations.h */,
+				D671B56F1C1A3D0B005F41F9 /* CALayer+Animations.m */,
 				D63F8CB11B95F63700D2F8F7 /* MapViewController.swift */,
 				D63F8C8F1B95D85600D2F8F7 /* Supporting Files */,
 				D6AB9D8C1B9715110087BC30 /* Bridge.h */,
 				D6CC61A01BBBCCBC00D79B96 /* Launch Screen.storyboard */,
 				D66107131C1772AB007755B2 /* SemiEllipseView.swift */,
+				D60429051C17A98C002436C5 /* Weather.swift */,
+				D60429091C182B0E002436C5 /* RSS.swift */,
+				D60429071C17B24D002436C5 /* Time.swift */,
 			);
 			path = OnTrack;
 			sourceTree = "<group>";
@@ -286,11 +304,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D60429061C17A98C002436C5 /* Weather.swift in Sources */,
 				D66107141C1772AB007755B2 /* SemiEllipseView.swift in Sources */,
 				D639507C1BB7B871009BE0D5 /* FileListTableViewController.swift in Sources */,
 				D63F8CB21B95F63700D2F8F7 /* MapViewController.swift in Sources */,
+				D604290A1C182B0E002436C5 /* RSS.swift in Sources */,
 				D63F8C921B95D85600D2F8F7 /* AppDelegate.swift in Sources */,
+				D671B5701C1A3D0B005F41F9 /* CALayer+Animations.m in Sources */,
 				D6C205451C166EE100399065 /* UIView+ViewPinnedInSuperView.swift in Sources */,
+				D60429081C17B24D002436C5 /* Time.swift in Sources */,
 				D63950801BB7BFD5009BE0D5 /* FileListTableViewCell.swift in Sources */,
 				D6CC617D1BBADB2A00D79B96 /* NSURL+applicationDocumentsDirectory.swift in Sources */,
 			);
@@ -400,6 +422,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/build/Debug-iphoneos",
+				);
 				HEADER_SEARCH_PATHS = "pods/**";
 				INFOPLIST_FILE = OnTrack/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -418,6 +444,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/build/Debug-iphoneos",
+				);
 				HEADER_SEARCH_PATHS = "pods/**";
 				INFOPLIST_FILE = OnTrack/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
