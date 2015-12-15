@@ -25,9 +25,19 @@ public enum ZoomType: String {
 
 class MapViewController: UIViewController {
     
+    var lastGPSLocation: CLLocation?
+    
+    
+    var youView: MKCircle?
+    
+    let spoofer = LocationSpoofer()
+    
     let weather = Weather()
     let time = Time()
     let rss = RSS()
+    
+    var waypoints: [GPXWaypoint]?
+    
     
     @IBOutlet weak var tappableViewTopSpaceLayoutConstraint: NSLayoutConstraint!
     @IBOutlet weak var distanceOffTrackLabel: UILabel!
@@ -72,20 +82,27 @@ class MapViewController: UIViewController {
     
     func showFileList() {
         
-
-        self.tickerLabel.layer.animateWithType(kCATransitionFromLeft, duration: 1.0)
+        UIView.animateWithDuration(0.2, animations: { () -> Void in
+            self.tickerLabel.alpha = 0
+            }) { (Bool) -> Void in
+                
+                UIView.animateWithDuration(0.2, animations: { () -> Void in
+                    
+                    self.tickerLabel.alpha = 1
+                    self.tickerLabel.textAlignment = .Left
+                    
+                })
+                
+        }
         
-        self.tickerLabel.textAlignment = .Left
-        
-      //  self.tickerLabel
         
         let launchStoryboard = UIStoryboard(name: "Main", bundle: nil)
         if let launchViewController = launchStoryboard.instantiateViewControllerWithIdentifier("FileListIdentifier") as? FileListTableViewController {
             
             let defaults = NSUserDefaults.standardUserDefaults()
             
-              if let file = defaults.objectForKey("file") as? String {
-            launchViewController.file = file
+            if let file = defaults.objectForKey("file") as? String {
+                launchViewController.file = file
             }
             self.hideSettings()
             
@@ -124,10 +141,19 @@ class MapViewController: UIViewController {
     
     func hideFileList() {
         
-        self.tickerLabel.layer.animateWithType(kCATransitionFromLeft, duration: 1.0)
         
-            self.tickerLabel.textAlignment = .Center
-        
+        UIView.animateWithDuration(0.2, animations: { () -> Void in
+            self.tickerLabel.alpha = 0
+            }) { (Bool) -> Void in
+                
+                UIView.animateWithDuration(0.2, animations: { () -> Void in
+                    
+                    self.tickerLabel.alpha = 1
+                    self.tickerLabel.textAlignment = .Center
+                    
+                })
+                
+        }
         
         if let launchViewController = self.fileListViewController {
             
@@ -190,6 +216,8 @@ class MapViewController: UIViewController {
     var rendererArray:Array<MKPolylineRenderer>?
     
     var mileMarkerCircleArray: Array<MKCircle>?
+    
+    var waypointCircleArray: [MKCircle]?
     
     @IBOutlet weak var titleButton: UIButton!
     // the actual array of arrays of points, for off track detection
@@ -273,12 +301,16 @@ class MapViewController: UIViewController {
             self.mapView.removeOverlays(mileMarkerCircleArray)
         }
         
+        if let waypointCircleArray = self.waypointCircleArray {
+            self.mapView.removeOverlays(waypointCircleArray)
+        }
+        
         self.distanceButton.setTitle("", forState: .Normal)
         
         
         if let url = NSURL(string: filename) {
-        
-        self.tickerLabel.text = url.URLByDeletingPathExtension?.lastPathComponent
+            
+            self.tickerLabel.text = url.URLByDeletingPathExtension?.lastPathComponent
         }
         else {
             self.tickerLabel.text = filename
@@ -323,12 +355,28 @@ class MapViewController: UIViewController {
                     self.locationArrayArray!.append(array)
                 }
             }
+            
+            
+            
+            for waypoint in root.waypoints {
+                
+                print (waypoint.latitude)
+                print (waypoint.longitude)
+                
+            }
+            
+            
+            self.waypoints = root.waypoints as? [GPXWaypoint]
+            
+            print(self.waypoints)
+            
         }
         
         self.interpolatedLocationArray = self.interpolateWith(5)
         
         
         self.popolateMapWithPolyline()
+        self.popolateMapWithWaypoints()
         self.popolateMapWithMileMarkers(self.createMarkersAtInterval(self.interpolatedLocationArray!, interval: 1609))
         self.zoomMapToRoute()
     }
@@ -363,6 +411,153 @@ class MapViewController: UIViewController {
         self.zoomTypeButton.setTitle(self.zoomType.rawValue, forState: .Normal)
     }
     
+    
+    func locationUpdated(location: CLLocation) {
+        
+        
+        //----
+        
+        self.currentLocation = location
+        
+        if let currentLocation = self.currentLocation {
+            
+            
+            if let waypoints = self.waypoints {
+                for waypoint in waypoints {
+                    
+                    let waypointLocation = CLLocation(latitude: Double(waypoint.latitude), longitude:Double(waypoint.longitude))
+                    
+                    let distance = waypointLocation.distanceFromLocation(currentLocation)
+                    
+                    if distance < 70 {
+                        let myUtterance = AVSpeechUtterance(string: waypoint.comment)
+                        
+                        self.synth.speakUtterance(myUtterance)
+                        
+                        waypoint.latitude = 0
+                        waypoint.longitude = 0
+                        
+                    }
+                }
+            }
+        }
+        
+        
+        if self.repeater == nil {
+            self.repeater = LSRepeater.repeater(15, execute: { [unowned self] () -> Void in
+                
+                var minimumDistance: CLLocationDistance = CLLocationDistance.infinity;
+                
+                var closestLocation: CLLocation?
+                
+                if let interpolatedLocationArray = self.interpolatedLocationArray {
+                    
+                    for location in interpolatedLocationArray {
+                        let distance = location.distanceFromLocation(self.currentLocation!);
+                        minimumDistance = min(minimumDistance, distance);
+                        
+                        if minimumDistance == distance {
+                            closestLocation = location
+                        }
+                        
+                    }
+                    
+                    let defaults = NSUserDefaults.standardUserDefaults()
+                    
+                    let offTrackAudioOn = defaults.boolForKey("OffTrackAudioOn")
+                    let offTrackDistance = defaults.valueForKey("OffTrackDistance")?.doubleValue
+                    
+                    if minimumDistance > offTrackDistance {
+                        self.found = false;
+                        
+                        
+                        let text:String
+                        
+                        if minimumDistance < 1000 {
+                            text = String(format:"%.0f metres", minimumDistance)
+                        }
+                        else {
+                            text = String(format:"%.1f kilometers", minimumDistance/1000)
+                        }
+                        
+                        
+                        let myUtterance = AVSpeechUtterance(string: "warning \(text) Off Track")
+                        
+                        if (offTrackAudioOn) {
+                            self.synth.speakUtterance(myUtterance)
+                        }
+                    }
+                        
+                    else {
+                        if self.found == false {
+                            let myUtterance = AVSpeechUtterance(string: "Onn Track")
+                            if (offTrackAudioOn) {
+                                self.synth.speakUtterance(myUtterance)
+                            }
+                            self.found = true
+                            
+                        }
+                    }
+                }
+                
+                
+                
+                if minimumDistance < 1000 {
+                    self.distanceOffTrackLabel.text = String(format:"%.0fm", minimumDistance)
+                }
+                else {
+                    self.distanceOffTrackLabel.text = String(format:"%.1fkm", minimumDistance/1000)
+                }
+                
+                
+                
+                // remove closest line
+                
+                if let currentLocationToNearestPolyline = self.currentLocationToNearestPolyline {
+                    self.mapView.removeOverlay(currentLocationToNearestPolyline)
+                }
+                
+                if let currentLocationToNearestPolyline = self.currentLocationToNearestPolyline {
+                    if let index = self.polylineArray?.indexOf(currentLocationToNearestPolyline) {
+                        self.polylineArray?.removeAtIndex(index)
+                    }
+                }
+                
+                if let currentLocationToNearestRenderer = self.currentLocationToNearestRenderer {
+                    if let index = self.rendererArray?.indexOf(currentLocationToNearestRenderer) {
+                        self.rendererArray?.removeAtIndex(index)
+                    }
+                }
+                // end remove closest line
+                
+                // add closest line
+                if let currentLocation = self.currentLocation, closestLocation = closestLocation {
+                    
+                    let coordinates = UnsafeMutablePointer<CLLocationCoordinate2D>.alloc(2)
+                    coordinates[0] = currentLocation.coordinate;
+                    coordinates[1] = closestLocation.coordinate;
+                    
+                    self.currentLocationToNearestPolyline = MKPolyline(coordinates: coordinates, count: 2)
+                    self.currentLocationToNearestRenderer = MKPolylineRenderer(polyline: self.currentLocationToNearestPolyline!)
+                    
+                    self.currentLocationToNearestRenderer!.strokeColor = UIColor.whiteColor()
+                    self.currentLocationToNearestRenderer!.lineWidth = 1;
+                    //      self.currentLocationToNearestPolyline!.lineDashPattern = 5
+                    
+                    self.polylineArray?.append(self.currentLocationToNearestPolyline!)
+                    self.rendererArray?.append(self.currentLocationToNearestRenderer!)
+                    
+                    self.mapView.addOverlay(self.currentLocationToNearestPolyline!, level:.AboveLabels);
+                }
+                // end add closest line
+                })
+        }
+        
+        
+        //---
+        
+        
+    }
     
     
     func updateZoomType() {
@@ -442,11 +637,14 @@ class MapViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.spoofer.load("AfternoonRun.gpx")
+        self.spoofer.start(self)
         
-    //    self.startWeather()
-    //    self.startTime()
-     //   self.startRSS()
-     
+        
+        //    self.startWeather()
+        //    self.startTime()
+        //   self.startRSS()
+        
         self.mapView.layoutMargins = UIEdgeInsetsMake(20, 0, 20, 0)
         
         
@@ -473,7 +671,7 @@ class MapViewController: UIViewController {
         self.setupAudio()
         
         self.mapView.delegate = self
-        self.mapView.showsUserLocation = true
+        self.mapView.showsUserLocation = false
         self.updateMapType()
         self.updateZoomType()
         self.updateZoomTypeButton()
@@ -485,13 +683,14 @@ class MapViewController: UIViewController {
             self.loadRoute(file)
         }
         
-        self.locationManager.startUpdatingLocation()
         
         
         self.tappableBackground.alpha = 0.0
         
         self.fileListArrowImageView.transform = CGAffineTransformMakeRotation(3.142)
         
+        
+        self.restartLocationEtc()
         
     }
     
@@ -569,12 +768,29 @@ class MapViewController: UIViewController {
         
         for location in locationArray {
             let circle = MKCircle(centerCoordinate: location.coordinate, radius: 1 as CLLocationDistance)
-            self.mapView.addOverlay(circle)
             self.mileMarkerCircleArray?.append(circle)
+            self.mapView.addOverlay(circle)
         }
         
-        self.calculateBoundingRect()
     }
+    
+    
+    func popolateMapWithWaypoints()
+    {
+        self.waypointCircleArray = Array<MKCircle>()
+        
+        if let waypoints = self.waypoints {
+            
+            for waypoint in waypoints {
+                let circle = MKCircle(centerCoordinate: CLLocationCoordinate2DMake(Double(waypoint.latitude), Double(waypoint.longitude)), radius: 20 as CLLocationDistance)
+                self.waypointCircleArray?.append(circle)
+                self.mapView.addOverlay(circle)
+            }
+            
+        }
+    }
+    
+    
     
     func zoomMapToRoute() {
         
@@ -617,13 +833,48 @@ extension MapViewController : MKMapViewDelegate {
     
     func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
         
-        if overlay is MKCircle {
-            let circle = MKCircleRenderer(overlay: overlay)
-            circle.strokeColor = UIColor(colorLiteralRed: 0.6, green: 0.75, blue: 0.29, alpha: 1.0)
-            circle.lineWidth = 5
-            return circle
-        }
         
+        if overlay.isKindOfClass(MKCircle) {
+            if let overlay = overlay as? MKCircle {
+                
+                if let waypointCircleArray = self.waypointCircleArray {
+                    
+                    if let _ = waypointCircleArray.indexOf(overlay) {
+                        let circle = MKCircleRenderer(overlay: overlay)
+                        circle.strokeColor = UIColor.redColor()
+                        circle.lineWidth = 5
+                        
+                        return circle
+                    }
+                    
+                }
+                if let mileMarkerCircleArray = self.mileMarkerCircleArray {
+                    
+                    if let _ = mileMarkerCircleArray.indexOf(overlay) {
+                        let circle = MKCircleRenderer(overlay: overlay)
+                        circle.strokeColor = UIColor(colorLiteralRed: 0.6, green: 0.75, blue: 0.29, alpha: 1.0)
+                        circle.lineWidth = 5
+                        
+                        return circle
+                    }
+                    
+                    
+                    
+                }
+                
+                if self.youView == overlay {
+                    let circle = MKCircleRenderer(overlay: overlay)
+                    circle.strokeColor = UIColor(colorLiteralRed: 1.0, green: 0.0, blue: 0.0, alpha: 0.8)
+                    circle.lineWidth = 2
+                    
+                    return circle
+                }
+                
+                
+            }
+            
+            
+        }
         
         if overlay.isKindOfClass(MKTileOverlay) {
             return MKTileOverlayRenderer(overlay: overlay)
@@ -761,118 +1012,8 @@ extension MapViewController : CLLocationManagerDelegate {
     
     func locationManager(manager: CLLocationManager, didUpdateToLocation newLocation: CLLocation, fromLocation oldLocation: CLLocation) {
         
+        self.locationUpdated(newLocation)
         
-        self.currentLocation = newLocation
-        
-        if self.repeater == nil {
-            self.repeater = LSRepeater.repeater(15, execute: { [unowned self] () -> Void in
-                
-                var minimumDistance: CLLocationDistance = CLLocationDistance.infinity;
-                
-                var closestLocation: CLLocation?
-                
-                if let interpolatedLocationArray = self.interpolatedLocationArray {
-                    
-                    for location in interpolatedLocationArray {
-                        let distance = location.distanceFromLocation(self.currentLocation!);
-                        minimumDistance = min(minimumDistance, distance);
-                        
-                        if minimumDistance == distance {
-                            closestLocation = location
-                        }
-                        
-                    }
-                    
-                    let defaults = NSUserDefaults.standardUserDefaults()
-                    
-                    let offTrackAudioOn = defaults.boolForKey("OffTrackAudioOn")
-                    let offTrackDistance = defaults.valueForKey("OffTrackDistance")?.doubleValue
-                    
-                    if minimumDistance > offTrackDistance {
-                        self.found = false;
-                        
-                        
-                        let text:String
-                        
-                        if minimumDistance < 1000 {
-                            text = String(format:"%.0f metres", minimumDistance)
-                        }
-                        else {
-                            text = String(format:"%.1f kilometers", minimumDistance/1000)
-                        }
-                        
-                        
-                        let myUtterance = AVSpeechUtterance(string: "warning \(text) Off Track")
-                        
-                        if (offTrackAudioOn) {
-                            self.synth.speakUtterance(myUtterance)
-                        }
-                    }
-                        
-                    else {
-                        if self.found == false {
-                            let myUtterance = AVSpeechUtterance(string: "Onn Track")
-                            if (offTrackAudioOn) {
-                                self.synth.speakUtterance(myUtterance)
-                            }
-                            self.found = true
-                            
-                        }
-                    }
-                }
-                
-                
-                
-                if minimumDistance < 1000 {
-                    self.distanceOffTrackLabel.text = String(format:"%.0fm", minimumDistance)
-                }
-                else {
-                    self.distanceOffTrackLabel.text = String(format:"%.1fkm", minimumDistance/1000)
-                }
-                
-                
-                
-                // remove closest line
-                
-                if let currentLocationToNearestPolyline = self.currentLocationToNearestPolyline {
-                    self.mapView.removeOverlay(currentLocationToNearestPolyline)
-                }
-                
-                if let currentLocationToNearestPolyline = self.currentLocationToNearestPolyline {
-                    if let index = self.polylineArray?.indexOf(currentLocationToNearestPolyline) {
-                        self.polylineArray?.removeAtIndex(index)
-                    }
-                }
-                
-                if let currentLocationToNearestRenderer = self.currentLocationToNearestRenderer {
-                    if let index = self.rendererArray?.indexOf(currentLocationToNearestRenderer) {
-                        self.rendererArray?.removeAtIndex(index)
-                    }
-                }
-                // end remove closest line
-                
-                // add closest line
-                if let currentLocation = self.currentLocation, closestLocation = closestLocation {
-                    
-                    let coordinates = UnsafeMutablePointer<CLLocationCoordinate2D>.alloc(2)
-                    coordinates[0] = currentLocation.coordinate;
-                    coordinates[1] = closestLocation.coordinate;
-                    
-                    self.currentLocationToNearestPolyline = MKPolyline(coordinates: coordinates, count: 2)
-                    self.currentLocationToNearestRenderer = MKPolylineRenderer(polyline: self.currentLocationToNearestPolyline!)
-                    
-                    self.currentLocationToNearestRenderer!.strokeColor = UIColor.whiteColor()
-                    self.currentLocationToNearestRenderer!.lineWidth = 1;
-                    //      self.currentLocationToNearestPolyline!.lineDashPattern = 5
-                    
-                    self.polylineArray?.append(self.currentLocationToNearestPolyline!)
-                    self.rendererArray?.append(self.currentLocationToNearestRenderer!)
-                    
-                    self.mapView.addOverlay(self.currentLocationToNearestPolyline!, level:.AboveLabels);
-                }
-                // end add closest line
-                })
-        }
     }
     
     
@@ -880,7 +1021,7 @@ extension MapViewController : CLLocationManagerDelegate {
         self.repeater?.invalidate()
         self.repeater = nil
         self.locationManager.stopUpdatingLocation()
-        self.locationManager.startUpdatingLocation()
+        //        self.locationManager.startUpdatingLocation()
     }
     
 }
@@ -916,6 +1057,57 @@ extension MapViewController : AVSpeechSynthesizerDelegate {
         try! self.session.setActive(false)
     }
     
+}
+
+extension MapViewController : LocationSpooferDelegate {
+    func locationSpoofer(spoofer:LocationSpoofer, location:CLLocation) {
+        
+        self.locationUpdated(location)
+        
+        var heading = 0.0
+        
+        if let lastGPSLocation = self.lastGPSLocation {
+           heading = self.bearingToLocation(lastGPSLocation, fromLocation:location);
+        }
+        
+        self.lastGPSLocation = location
+        
+        
+        
+        //       self.mapView.centerCoordinate = location.coordinate
+        
+        
+        if let youView = self.youView {
+            self.mapView.removeOverlay(youView)
+        }
+        self.youView = MKCircle(centerCoordinate: location.coordinate, radius: 1 as CLLocationDistance)
+        self.mapView.addOverlay(self.youView!)
+    self.mapView.pitchEnabled = true
+        
+        //    self.mapView
+        //  }
+        
+       let mapCamera = MKMapCamera()
+
+        
+        mapCamera.centerCoordinate = location.coordinate
+        mapCamera.pitch = 45;
+        
+    
+        mapCamera.altitude = 10;
+        mapCamera.heading =  ( ( heading ) * ( 180.0 / M_PI ) ) - 180
+        
+        print(mapCamera.heading)
+        
+        //Set MKmapView camera property
+      UIView.animateWithDuration(2.0) {
+        
+        self.mapView.camera = mapCamera;
+        }
+        
+        
+        
+    }
 }
 
 

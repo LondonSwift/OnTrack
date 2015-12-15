@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func setupDefaults() {
         let defaults = NSUserDefaults.standardUserDefaults()
         if defaults.objectForKey("file") == nil {
-            defaults.setObject("Peak200.gpx", forKey:"file");
+            defaults.setObject("AfternoonRun.gpx", forKey:"file");
             defaults.synchronize();
         }
       
@@ -51,8 +51,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         if defaults.objectForKey("hasCopiedFiles") == nil {
-            defaults.setBool(true, forKey:"hasCopiedFiles");
-            defaults.synchronize();
+    //        defaults.setBool(true, forKey:"hasCopiedFiles");
+    //        defaults.synchronize();
             
             self.copyFiles()
         }
@@ -64,7 +64,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         do {
             
-            for path in ["BrenigLoop", "Peak200", "PennineBridlewayDouble", "PennineBridlewayComplete","TheRidgeway"] {
+            for path in ["BrenigLoop", "Peak200", "PennineBridlewayDouble", "PennineBridlewayComplete","TheRidgeway","Cellarton", "StramshallLoop","ParkHall","AfternoonRun"] {
                 
                 if let fullSourcePath = NSBundle.mainBundle().pathForResource(path, ofType:"gpx") {
                 
