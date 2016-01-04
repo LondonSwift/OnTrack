@@ -25,12 +25,11 @@ public enum ZoomType: String {
 
 class MapViewController: UIViewController {
     
-    var lastGPSLocation: CLLocation?
-    
+    var editorLocations = [CLLocation]()
     
     var youView: MKCircle?
     
-    let spoofer = LocationSpoofer()
+   // let spoofer = LocationSpoofer()
     
     let weather = Weather()
     let time = Time()
@@ -229,7 +228,7 @@ class MapViewController: UIViewController {
     
     @IBOutlet weak var mapView: MKMapView!
     
-    var mapType:MapType = .AppleStandard
+    var mapType:MapType = .AppleSatellite
     var zoomType:ZoomType = .All
     var boundingRect:MKMapRect?
     var overlay:MKTileOverlay?
@@ -637,8 +636,8 @@ class MapViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.spoofer.load("AfternoonRun.gpx")
-        self.spoofer.start(self)
+ //       self.spoofer.load("AfternoonRun.gpx")
+ //       self.spoofer.start(self)
         
         
         //    self.startWeather()
@@ -671,7 +670,7 @@ class MapViewController: UIViewController {
         self.setupAudio()
         
         self.mapView.delegate = self
-        self.mapView.showsUserLocation = false
+        self.mapView.showsUserLocation = true
         self.updateMapType()
         self.updateZoomType()
         self.updateZoomTypeButton()
@@ -865,7 +864,7 @@ extension MapViewController : MKMapViewDelegate {
                 if self.youView == overlay {
                     let circle = MKCircleRenderer(overlay: overlay)
                     circle.strokeColor = UIColor(colorLiteralRed: 1.0, green: 0.0, blue: 0.0, alpha: 0.8)
-                    circle.lineWidth = 2
+                    circle.lineWidth = 8
                     
                     return circle
                 }
@@ -1021,7 +1020,7 @@ extension MapViewController : CLLocationManagerDelegate {
         self.repeater?.invalidate()
         self.repeater = nil
         self.locationManager.stopUpdatingLocation()
-        //        self.locationManager.startUpdatingLocation()
+        self.locationManager.startUpdatingLocation()
     }
     
 }
@@ -1057,57 +1056,6 @@ extension MapViewController : AVSpeechSynthesizerDelegate {
         try! self.session.setActive(false)
     }
     
-}
-
-extension MapViewController : LocationSpooferDelegate {
-    func locationSpoofer(spoofer:LocationSpoofer, location:CLLocation) {
-        
-        self.locationUpdated(location)
-        
-        var heading = 0.0
-        
-        if let lastGPSLocation = self.lastGPSLocation {
-           heading = self.bearingToLocation(lastGPSLocation, fromLocation:location);
-        }
-        
-        self.lastGPSLocation = location
-        
-        
-        
-        //       self.mapView.centerCoordinate = location.coordinate
-        
-        
-        if let youView = self.youView {
-            self.mapView.removeOverlay(youView)
-        }
-        self.youView = MKCircle(centerCoordinate: location.coordinate, radius: 1 as CLLocationDistance)
-        self.mapView.addOverlay(self.youView!)
-    self.mapView.pitchEnabled = true
-        
-        //    self.mapView
-        //  }
-        
-       let mapCamera = MKMapCamera()
-
-        
-        mapCamera.centerCoordinate = location.coordinate
-        mapCamera.pitch = 45;
-        
-    
-        mapCamera.altitude = 10;
-        mapCamera.heading =  ( ( heading ) * ( 180.0 / M_PI ) ) - 180
-        
-        print(mapCamera.heading)
-        
-        //Set MKmapView camera property
-      UIView.animateWithDuration(2.0) {
-        
-        self.mapView.camera = mapCamera;
-        }
-        
-        
-        
-    }
 }
 
 

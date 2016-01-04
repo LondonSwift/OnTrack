@@ -14,8 +14,6 @@
 		D604290C1C18304B002436C5 /* TBXML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D604290B1C18304B002436C5 /* TBXML.framework */; };
 		D612F1441C1F1EEA003D3D74 /* LocationSpoofer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D612F1431C1F1EEA003D3D74 /* LocationSpoofer.swift */; };
 		D612F1461C1F228E003D3D74 /* LocationAndRelativeTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = D612F1451C1F228E003D3D74 /* LocationAndRelativeTime.swift */; };
-		D61A06471C1F2B2400D5AC29 /* Waypoints.gpx in Resources */ = {isa = PBXBuildFile; fileRef = D61A06461C1F2B2400D5AC29 /* Waypoints.gpx */; };
-		D61A06491C1F333C00D5AC29 /* newwaypoints.gpx in Resources */ = {isa = PBXBuildFile; fileRef = D61A06481C1F333C00D5AC29 /* newwaypoints.gpx */; };
 		D639507C1BB7B871009BE0D5 /* FileListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D639507B1BB7B871009BE0D5 /* FileListTableViewController.swift */; };
 		D63950801BB7BFD5009BE0D5 /* FileListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D639507F1BB7BFD5009BE0D5 /* FileListTableViewCell.swift */; };
 		D63F8C921B95D85600D2F8F7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63F8C911B95D85600D2F8F7 /* AppDelegate.swift */; };
@@ -23,21 +21,13 @@
 		D63F8CB21B95F63700D2F8F7 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63F8CB11B95F63700D2F8F7 /* MapViewController.swift */; };
 		D63F8CB41B95F79200D2F8F7 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D63F8CB31B95F79200D2F8F7 /* MapKit.framework */; };
 		D651A60D1C14718200FCFB40 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D651A60C1C14718200FCFB40 /* Images.xcassets */; };
-		D65F06E71C1AF0710023560D /* Cellarton.gpx in Resources */ = {isa = PBXBuildFile; fileRef = D65F06E61C1AF0710023560D /* Cellarton.gpx */; };
 		D66107141C1772AB007755B2 /* SemiEllipseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66107131C1772AB007755B2 /* SemiEllipseView.swift */; };
-		D66B17F01C1CBD4200DF35E3 /* StramshallLoop.gpx in Resources */ = {isa = PBXBuildFile; fileRef = D66B17EF1C1CBD4200DF35E3 /* StramshallLoop.gpx */; };
 		D671B5701C1A3D0B005F41F9 /* CALayer+Animations.m in Sources */ = {isa = PBXBuildFile; fileRef = D671B56F1C1A3D0B005F41F9 /* CALayer+Animations.m */; };
-		D67B775F1C1EF1A400F496A6 /* ParkHall.gpx in Resources */ = {isa = PBXBuildFile; fileRef = D67B775E1C1EF1A400F496A6 /* ParkHall.gpx */; };
-		D67B77611C1F10D300F496A6 /* AfternoonRun.gpx in Resources */ = {isa = PBXBuildFile; fileRef = D67B77601C1F10D300F496A6 /* AfternoonRun.gpx */; };
 		D6A242091B985A90001FA00D /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6A242081B985A90001FA00D /* AudioToolbox.framework */; };
 		D6C205451C166EE100399065 /* UIView+ViewPinnedInSuperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C205441C166EE100399065 /* UIView+ViewPinnedInSuperView.swift */; };
 		D6CC617D1BBADB2A00D79B96 /* NSURL+applicationDocumentsDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6CC617C1BBADB2A00D79B96 /* NSURL+applicationDocumentsDirectory.swift */; };
 		D6CC61A11BBBCCBC00D79B96 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6CC61A01BBBCCBC00D79B96 /* Launch Screen.storyboard */; };
-		D6CC61AB1BBBF89D00D79B96 /* BrenigLoop.gpx in Resources */ = {isa = PBXBuildFile; fileRef = D6CC61A41BBBF89D00D79B96 /* BrenigLoop.gpx */; };
-		D6CC61AD1BBBF89D00D79B96 /* Peak200.gpx in Resources */ = {isa = PBXBuildFile; fileRef = D6CC61A61BBBF89D00D79B96 /* Peak200.gpx */; };
-		D6CC61AE1BBBF89D00D79B96 /* PennineBridlewayDouble.gpx in Resources */ = {isa = PBXBuildFile; fileRef = D6CC61A71BBBF89D00D79B96 /* PennineBridlewayDouble.gpx */; };
 		D6CC61AF1BBBF89D00D79B96 /* PennineBridlewayComplete.gpx in Resources */ = {isa = PBXBuildFile; fileRef = D6CC61A81BBBF89D00D79B96 /* PennineBridlewayComplete.gpx */; };
-		D6CC61B01BBBF89D00D79B96 /* TheRidgeway.gpx in Resources */ = {isa = PBXBuildFile; fileRef = D6CC61A91BBBF89D00D79B96 /* TheRidgeway.gpx */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,8 +40,6 @@
 		D604290B1C18304B002436C5 /* TBXML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TBXML.framework; path = "Pods/../build/Debug-iphoneos/TBXML.framework"; sourceTree = "<group>"; };
 		D612F1431C1F1EEA003D3D74 /* LocationSpoofer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationSpoofer.swift; sourceTree = "<group>"; };
 		D612F1451C1F228E003D3D74 /* LocationAndRelativeTime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationAndRelativeTime.swift; sourceTree = "<group>"; };
-		D61A06461C1F2B2400D5AC29 /* Waypoints.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Waypoints.gpx; sourceTree = "<group>"; };
-		D61A06481C1F333C00D5AC29 /* newwaypoints.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = newwaypoints.gpx; sourceTree = "<group>"; };
 		D639507B1BB7B871009BE0D5 /* FileListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileListTableViewController.swift; sourceTree = "<group>"; };
 		D639507F1BB7BFD5009BE0D5 /* FileListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileListTableViewCell.swift; sourceTree = "<group>"; };
 		D63F8C8C1B95D85600D2F8F7 /* OnTrack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OnTrack.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -61,23 +49,15 @@
 		D63F8CB11B95F63700D2F8F7 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		D63F8CB31B95F79200D2F8F7 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		D651A60C1C14718200FCFB40 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		D65F06E61C1AF0710023560D /* Cellarton.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Cellarton.gpx; sourceTree = "<group>"; };
 		D66107131C1772AB007755B2 /* SemiEllipseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SemiEllipseView.swift; sourceTree = "<group>"; };
-		D66B17EF1C1CBD4200DF35E3 /* StramshallLoop.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = StramshallLoop.gpx; sourceTree = "<group>"; };
 		D671B56E1C1A3D0B005F41F9 /* CALayer+Animations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CALayer+Animations.h"; sourceTree = "<group>"; };
 		D671B56F1C1A3D0B005F41F9 /* CALayer+Animations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CALayer+Animations.m"; sourceTree = "<group>"; };
-		D67B775E1C1EF1A400F496A6 /* ParkHall.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = ParkHall.gpx; sourceTree = "<group>"; };
-		D67B77601C1F10D300F496A6 /* AfternoonRun.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = AfternoonRun.gpx; sourceTree = "<group>"; };
 		D6A242081B985A90001FA00D /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		D6AB9D8C1B9715110087BC30 /* Bridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Bridge.h; sourceTree = "<group>"; };
 		D6C205441C166EE100399065 /* UIView+ViewPinnedInSuperView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+ViewPinnedInSuperView.swift"; sourceTree = "<group>"; };
 		D6CC617C1BBADB2A00D79B96 /* NSURL+applicationDocumentsDirectory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSURL+applicationDocumentsDirectory.swift"; sourceTree = "<group>"; };
 		D6CC61A01BBBCCBC00D79B96 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
-		D6CC61A41BBBF89D00D79B96 /* BrenigLoop.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = BrenigLoop.gpx; sourceTree = "<group>"; };
-		D6CC61A61BBBF89D00D79B96 /* Peak200.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Peak200.gpx; sourceTree = "<group>"; };
-		D6CC61A71BBBF89D00D79B96 /* PennineBridlewayDouble.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = PennineBridlewayDouble.gpx; sourceTree = "<group>"; };
 		D6CC61A81BBBF89D00D79B96 /* PennineBridlewayComplete.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = PennineBridlewayComplete.gpx; sourceTree = "<group>"; };
-		D6CC61A91BBBF89D00D79B96 /* TheRidgeway.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = TheRidgeway.gpx; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,8 +97,6 @@
 		D63F8C831B95D85600D2F8F7 = {
 			isa = PBXGroup;
 			children = (
-				D61A06481C1F333C00D5AC29 /* newwaypoints.gpx */,
-				D61A06461C1F2B2400D5AC29 /* Waypoints.gpx */,
 				D63F8CB31B95F79200D2F8F7 /* MapKit.framework */,
 				D63F8C8E1B95D85600D2F8F7 /* OnTrack */,
 				D63F8C8D1B95D85600D2F8F7 /* Products */,
@@ -173,15 +151,7 @@
 		D6CC61A31BBBF89400D79B96 /* GPX */ = {
 			isa = PBXGroup;
 			children = (
-				D67B77601C1F10D300F496A6 /* AfternoonRun.gpx */,
-				D67B775E1C1EF1A400F496A6 /* ParkHall.gpx */,
-				D66B17EF1C1CBD4200DF35E3 /* StramshallLoop.gpx */,
-				D65F06E61C1AF0710023560D /* Cellarton.gpx */,
-				D6CC61A41BBBF89D00D79B96 /* BrenigLoop.gpx */,
-				D6CC61A61BBBF89D00D79B96 /* Peak200.gpx */,
-				D6CC61A71BBBF89D00D79B96 /* PennineBridlewayDouble.gpx */,
 				D6CC61A81BBBF89D00D79B96 /* PennineBridlewayComplete.gpx */,
-				D6CC61A91BBBF89D00D79B96 /* TheRidgeway.gpx */,
 			);
 			name = GPX;
 			sourceTree = "<group>";
@@ -249,20 +219,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D6CC61AB1BBBF89D00D79B96 /* BrenigLoop.gpx in Resources */,
 				D651A60D1C14718200FCFB40 /* Images.xcassets in Resources */,
-				D6CC61B01BBBF89D00D79B96 /* TheRidgeway.gpx in Resources */,
-				D67B775F1C1EF1A400F496A6 /* ParkHall.gpx in Resources */,
 				D6CC61A11BBBCCBC00D79B96 /* Launch Screen.storyboard in Resources */,
 				D6CC61AF1BBBF89D00D79B96 /* PennineBridlewayComplete.gpx in Resources */,
-				D6CC61AE1BBBF89D00D79B96 /* PennineBridlewayDouble.gpx in Resources */,
 				D63F8C971B95D85600D2F8F7 /* Main.storyboard in Resources */,
-				D6CC61AD1BBBF89D00D79B96 /* Peak200.gpx in Resources */,
-				D61A06491C1F333C00D5AC29 /* newwaypoints.gpx in Resources */,
-				D66B17F01C1CBD4200DF35E3 /* StramshallLoop.gpx in Resources */,
-				D67B77611C1F10D300F496A6 /* AfternoonRun.gpx in Resources */,
-				D65F06E71C1AF0710023560D /* Cellarton.gpx in Resources */,
-				D61A06471C1F2B2400D5AC29 /* Waypoints.gpx in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
