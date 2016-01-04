@@ -5,7 +5,7 @@ PODS:
   - iOS-GPX-Framework (0.0.2):
     - TBXML (~> 1.5)
   - LSRepeater (0.0.8)
-  - MarqueeLabel (2.4.0)
+  - MarqueeLabel (2.4.2)
   - TBXML (1.5)
 
 DEPENDENCIES:
@@ -20,7 +20,7 @@ SPEC CHECKSUMS:
   Fabric: bf0ceb04e7c924090efc5f8c55e4fbcca189e0a0
   iOS-GPX-Framework: f6d50c6664a1747746b73da6899b1fc9a1f81ff6
   LSRepeater: 3f2028f647d280d72c3b43bb55c501a7cf62ed0c
-  MarqueeLabel: d6bddc297b922784f9d1e7d92cffbf99bad413d2
+  MarqueeLabel: 641f82cd199dae0ab194bd157984b3cbfbb31b09
   TBXML: 9f9dadb239f2f2af1dadb87fe43a0ce6e479379a
 
-COCOAPODS: 0.38.2
+COCOAPODS: 0.39.0
