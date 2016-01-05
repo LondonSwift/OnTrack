@@ -14,7 +14,11 @@ protocol FileListTableViewControllerDelegate {
 }
 
 class FileListTableViewController: UITableViewController {
-    
+  
+  func requiredHeight() ->CGFloat {
+    return self.fileList.count > 0 ? CGFloat(fileList.count) * 44.0 : 88.0
+  }
+  
     var delegate: FileListTableViewControllerDelegate?
     
     let fileManager = NSFileManager.defaultManager()
@@ -23,7 +27,11 @@ class FileListTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+      
+      if self.fileList.count > 0 {
+        self.tableView.tableHeaderView = UIView()
+      }
+      
         self.tableView.tableFooterView = UIView()
     }
     
@@ -86,7 +94,10 @@ extension FileListTableViewController /* : UITableViewDataSource*/ {
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.fileList.count
+      
+
+      
+      return self.fileList.count
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {

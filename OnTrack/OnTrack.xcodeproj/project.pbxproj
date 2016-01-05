@@ -27,7 +27,7 @@
 		D6C205451C166EE100399065 /* UIView+ViewPinnedInSuperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C205441C166EE100399065 /* UIView+ViewPinnedInSuperView.swift */; };
 		D6CC617D1BBADB2A00D79B96 /* NSURL+applicationDocumentsDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6CC617C1BBADB2A00D79B96 /* NSURL+applicationDocumentsDirectory.swift */; };
 		D6CC61A11BBBCCBC00D79B96 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6CC61A01BBBCCBC00D79B96 /* Launch Screen.storyboard */; };
-		D6CC61AF1BBBF89D00D79B96 /* PennineBridlewayComplete.gpx in Resources */ = {isa = PBXBuildFile; fileRef = D6CC61A81BBBF89D00D79B96 /* PennineBridlewayComplete.gpx */; };
+		D6CC61AF1BBBF89D00D79B96 /* PennineBridleway.gpx in Resources */ = {isa = PBXBuildFile; fileRef = D6CC61A81BBBF89D00D79B96 /* PennineBridleway.gpx */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,7 +57,7 @@
 		D6C205441C166EE100399065 /* UIView+ViewPinnedInSuperView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+ViewPinnedInSuperView.swift"; sourceTree = "<group>"; };
 		D6CC617C1BBADB2A00D79B96 /* NSURL+applicationDocumentsDirectory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSURL+applicationDocumentsDirectory.swift"; sourceTree = "<group>"; };
 		D6CC61A01BBBCCBC00D79B96 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
-		D6CC61A81BBBF89D00D79B96 /* PennineBridlewayComplete.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = PennineBridlewayComplete.gpx; sourceTree = "<group>"; };
+		D6CC61A81BBBF89D00D79B96 /* PennineBridleway.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = PennineBridleway.gpx; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,7 +151,7 @@
 		D6CC61A31BBBF89400D79B96 /* GPX */ = {
 			isa = PBXGroup;
 			children = (
-				D6CC61A81BBBF89D00D79B96 /* PennineBridlewayComplete.gpx */,
+				D6CC61A81BBBF89D00D79B96 /* PennineBridleway.gpx */,
 			);
 			name = GPX;
 			sourceTree = "<group>";
@@ -221,7 +221,7 @@
 			files = (
 				D651A60D1C14718200FCFB40 /* Images.xcassets in Resources */,
 				D6CC61A11BBBCCBC00D79B96 /* Launch Screen.storyboard in Resources */,
-				D6CC61AF1BBBF89D00D79B96 /* PennineBridlewayComplete.gpx in Resources */,
+				D6CC61AF1BBBF89D00D79B96 /* PennineBridleway.gpx in Resources */,
 				D63F8C971B95D85600D2F8F7 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

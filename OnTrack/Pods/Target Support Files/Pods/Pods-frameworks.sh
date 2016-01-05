@@ -85,13 +85,11 @@ strip_invalid_archs() {
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods/LSRepeater.framework"
-  install_framework "Pods/MarqueeLabel.framework"
   install_framework "Pods/TBXML.framework"
   install_framework "Pods/iOS_GPX_Framework.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods/LSRepeater.framework"
-  install_framework "Pods/MarqueeLabel.framework"
   install_framework "Pods/TBXML.framework"
   install_framework "Pods/iOS_GPX_Framework.framework"
 fi
